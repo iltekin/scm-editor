@@ -534,15 +534,20 @@
 
   function recordsToBuffer(records) {
     // The TV's own scans always place used records contiguously starting at
-    // slot 0, with unused (all-zero) slots only at the tail. Deleting a
-    // channel by zeroing it in place breaks that invariant and has been
-    // observed to make the TV treat the whole list as invalid/empty. So at
-    // save time we compact: kept records are written contiguously from
-    // slot 0 (in channel-number order), everything else stays zeroed.
+    // slot 0, with unused (all-zero) slots only at the tail, and channels
+    // from the same transponder/satellite physically grouped together in
+    // their original scan order. Deleting a channel by zeroing it in place
+    // breaks the "contiguous from slot 0" invariant, and re-sorting the
+    // physical slots by channel number breaks the transponder grouping
+    // (both have been observed to make the TV treat the whole list as
+    // invalid/empty after a reboot). So at save time we compact by ORIGINAL
+    // SLOT order (preserving the scan's physical grouping) and leave the
+    // channel-number field as the only thing that reflects the user's
+    // chosen display/tuning order.
     const out = new Uint8Array(records.length * REC_LEN);
     const kept = records
       .filter(r => r.used && !r.deleted)
-      .sort((a, b) => a.channelNo - b.channelNo || a.slot - b.slot);
+      .sort((a, b) => a.slot - b.slot);
     kept.forEach((r, i) => {
       applyRecordChanges(r);
       out.set(r.raw, i * REC_LEN);
