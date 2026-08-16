@@ -13,6 +13,7 @@
       dropzoneP: "Eski Samsung TV'den USB ile aldığın <code>channel_list_....scm</code> dosyasını yükle.<br>Dosya sadece bu sekmede, tarayıcı belleğinde işlenir — hiçbir sunucuya yüklenmez.",
       openBtn: "Dosya Seç",
       loadExample: "Örnek dosyayı yükle",
+      loadExampleEdited: "Düzenlenmiş örnek dosyayı yükle",
       searchPlaceholder: "Kanal adında ara...",
       filterEncAll: "Tümü",
       filterEncEnc: "Sadece şifreli 🔒",
@@ -141,6 +142,7 @@
       dropzoneP: "Upload the <code>channel_list_....scm</code> file you got from your old Samsung TV via USB.<br>The file is only processed in this tab's browser memory — nothing is uploaded to a server.",
       openBtn: "Select File",
       loadExample: "Load the example file",
+      loadExampleEdited: "Load the edited example file",
       searchPlaceholder: "Search by channel name...",
       filterEncAll: "All",
       filterEncEnc: "Encrypted only 🔒",
@@ -826,20 +828,27 @@
   }
   $("resetBtn").addEventListener("click", resetApp);
 
-  $("loadExampleLink").addEventListener("click", async (e) => {
-    e.preventDefault();
+  async function loadExampleFile(path) {
     try {
       $("status").textContent = t("downloadingExample");
-      const resp = await fetch("example/channel_list_UE40ES8000_1201.scm");
+      const resp = await fetch(path);
       if (!resp.ok) throw new Error(t("exampleNotFound", { status: resp.status }));
       const blob = await resp.blob();
-      const file = new File([blob], "channel_list_UE40ES8000_1201.scm", { type: "application/octet-stream" });
+      const file = new File([blob], path.split("/").pop(), { type: "application/octet-stream" });
       await handleFile(file);
     } catch (err) {
       console.error(err);
       toast(t("exampleLoadFailed", { msg: err.message }), "error");
       $("status").textContent = "";
     }
+  }
+  $("loadExampleLink").addEventListener("click", (e) => {
+    e.preventDefault();
+    loadExampleFile("example/channel_list_UE40ES8000_1201.scm");
+  });
+  $("loadExampleEditedLink").addEventListener("click", (e) => {
+    e.preventDefault();
+    loadExampleFile("example/channel_list_UE40ES8000_1201_edited.scm");
   });
 
   const dz = $("dropzone");
