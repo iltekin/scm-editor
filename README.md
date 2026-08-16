@@ -1,5 +1,7 @@
 # SCM Kanal Listesi Düzenleyici
 
+![TV Kanal Listesi Yönetim Rehberi (4 Adım): 1. TV'den flash belleğe aktarma, 2. Bilgisayarda düzenleme, 3. Düzenlenen listeyi kaydetme, 4. TV'ye içe aktarma](docs/kullanim-rehberi.png)
+
 Eski Samsung televizyonlardan USB ile alınan uydu kanal listesi (`.scm`) dosyalarını düzenlemek için tamamen tarayıcı içinde çalışan bir araç.
 
 **Canlı adres:** [iltekin.github.io/scm-editor](https://iltekin.github.io/scm-editor)
