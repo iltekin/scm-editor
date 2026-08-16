@@ -41,10 +41,10 @@ Elinde henüz kendi `.scm` dosyan yoksa, ilk ekrandaki **"Örnek dosyayı yükle
 ## Dosya yapısı
 
 ```
-index.html          – sayfa iskeleti
-style.css            – görünüm
-app.js               – tüm mantık (ZIP okuma/yazma, kanal kaydı çözümleme, arayüz, çeviriler)
-example/*.scm        – aracı denemek için örnek kanal listesi
+index.html          – ana seçim ve kırılım sayfası (Hub)
+style.css            – genel tasarım & tema stilleri
+samsung-scm/        – eski Samsung TV'ler (.scm) için ayrı dizinde çalışan editör
+samsung-zip/        – yeni Samsung TV'ler (Channel_list_....zip, SQLite) için ayrı dizinde çalışan editör
 ```
 
 ## Format hakkında not

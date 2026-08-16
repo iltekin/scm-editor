@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="pageTitle">Samsung ZIP Kanal Listesi Düzenleyici</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="lib/sql-asm.js"></script>
+  <script src="example/sampleB64.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <a href="../index.html" class="btn" style="text-decoration:none;" data-i18n="backToHub">← Ana Menü</a>
+    <h1 data-i18n="h1">📡 Samsung ZIP Kanal Listesi Düzenleyici</h1>
+    <span class="sub" data-i18n="headerSub">Yeni Samsung TV ZIP formatı (Channel_list_....zip) &mdash; tamamen tarayıcıda çalışır</span>
+    <input type="file" id="fileInput" accept=".zip">
+    <button class="btn" id="langToggle" style="margin-left:auto;">EN</button>
+    <button class="btn hidden" id="resetBtn" data-i18n="resetBtn">↺ Sıfırla</button>
+    <button class="btn primary hidden" id="saveBtn" disabled data-i18n="saveBtn">💾 Kaydet (.zip indir)</button>
+    <span id="status" class="hidden"></span>
+  </header>
+
+  <div id="dropzone">
+    <h2 data-i18n="dropzoneTitle">Channel_list_....zip dosyanı buraya sürükle veya seç</h2>
+    <p data-i18n-html="dropzoneP">
+      Yeni Samsung TV'den USB ile aldığın <code>Channel_list_....zip</code> dosyasını yükle.<br>
+      Dosya yerleşik SQLite WebAssembly motoru ile tarayıcı belleğinde işlenir &mdash; hiçbir sunucuya yüklenmez.
+    </p>
+    <button class="btn primary" id="openBtn" data-i18n="openBtn">Dosya Seç</button>
+    <div class="example-link">
+      <a href="#" id="loadExampleLink" data-i18n="loadExample">Örnek dosyayı yükle (T-MSLDEUC)</a>
+    </div>
+  </div>
+
+  <div id="app">
+    <div class="toolbar">
+      <input type="text" id="search" data-i18n-placeholder="searchPlaceholder" placeholder="Kanal adında ara...">
+      <select id="filterEnc">
+        <option value="all" data-i18n="filterEncAll">Tümü</option>
+        <option value="enc" data-i18n="filterEncEnc">Sadece şifreli 🔒</option>
+        <option value="free" data-i18n="filterEncFree">Sadece şifresiz 🔓</option>
+      </select>
+      <select id="filterType">
+        <option value="all" data-i18n="filterTypeAll">Tüm türler</option>
+        <option value="sd" data-i18n="filterTypeSd">SD</option>
+        <option value="hd" data-i18n="filterTypeHd">HD</option>
+        <option value="radio" data-i18n="filterTypeRadio">Radyo</option>
+      </select>
+      <label><input type="checkbox" id="showDeleted"> <span data-i18n="showDeleted">Silinenleri göster</span></label>
+      <div class="sep"></div>
+      <button class="btn" id="selectAllBtn" data-i18n="selectAllBtn">Görüneni Seç</button>
+      <button class="btn" id="selectNoneBtn" data-i18n="selectNoneBtn">Seçimi Temizle</button>
+      <label><span data-i18n="selectFirstPrefix">İlk</span>
+        <input type="number" id="selectFirstN" value="10" min="1" max="1000" style="width:56px">
+        <span data-i18n="selectFirstSuffix">kanalı seç</span>
+        <button class="btn" id="selectFirstNBtn" style="padding:6px 10px;" data-i18n="selectFirstBtn">Seç</button>
+      </label>
+      <button class="btn primary" id="openPickerBtn" data-i18n="openPickerBtn">🎯 Aratarak Sıra Oluştur</button>
+      <div class="sep"></div>
+      <button class="btn danger" id="deleteBtn" data-i18n="deleteBtn">🗑 Seçilenleri Sil</button>
+      <button class="btn" id="undeleteBtn" data-i18n="undeleteBtn">↺ Seçilenleri Geri Al</button>
+
+      <div class="sep"></div>
+      <div class="menu">
+        <button class="btn menu-trigger" id="sortMenuBtn" data-i18n="sortMenuBtn">🔀 Sıralama Modları ▾</button>
+        <div class="menu-panel" id="sortMenuPanel">
+          <div class="menu-title" data-i18n="menuRenumberTitle">Yeniden numarala</div>
+          <div class="menu-row">
+            <span data-i18n="startNoLabel">Başlangıç No:</span>
+            <input type="number" id="renumberStart" value="1" min="0" max="65535">
+          </div>
+          <button class="btn" id="renumberBtn" data-i18n="renumberBtn">🔢 Görünen sıraya göre numarala</button>
+          <div class="menu-sep"></div>
+          <div class="menu-title" data-i18n="menuSortGroupTitle">Gruba göre sırala</div>
+          <button class="btn" id="sortNameBtn" data-i18n="sortNameBtn">🔤 İsme göre sırala (A-Z)</button>
+          <button class="btn" id="selFirstBtn" data-i18n="selFirstBtn">⬆ Seçilenleri başa al</button>
+          <button class="btn" id="selLastBtn" data-i18n="selLastBtn">⬇ Seçilenleri sona al</button>
+          <button class="btn" id="radioFirstBtn" data-i18n="radioFirstBtn">⬆ Radyoları başa al</button>
+          <button class="btn" id="radioLastBtn" data-i18n="radioLastBtn">⬇ Radyoları sona al</button>
+          <button class="btn" id="encFirstBtn" data-i18n="encFirstBtn">⬆ Şifrelileri başa al</button>
+          <button class="btn" id="encLastBtn" data-i18n="encLastBtn">⬇ Şifrelileri sona al</button>
+        </div>
+      </div>
+
+      <div class="menu">
+        <button class="btn menu-trigger" id="deleteMenuBtn" data-i18n="deleteMenuBtn">🗑 Toplu Silme ▾</button>
+        <div class="menu-panel" id="deleteMenuPanel">
+          <div class="menu-title" data-i18n="menuDeleteTypeTitle">Türe göre sil</div>
+          <button class="btn danger" id="deleteSdBtn" data-i18n="deleteSdBtn">Tüm SD kanalları sil</button>
+          <button class="btn danger" id="deleteHdBtn" data-i18n="deleteHdBtn">Tüm HD kanalları sil</button>
+          <button class="btn danger" id="deleteRadioBtn" data-i18n="deleteRadioBtn">Tüm radyoları sil</button>
+          <button class="btn danger" id="deleteTvBtn" data-i18n="deleteTvBtn">Tüm TV kanallarını sil (radyo hariç)</button>
+          <div class="menu-sep"></div>
+          <div class="menu-title" data-i18n="menuDeleteEncTitle">Şifre durumuna göre sil</div>
+          <button class="btn danger" id="deleteEncBtn" data-i18n="deleteEncBtn">Tüm şifreli kanalları sil</button>
+          <button class="btn danger" id="deleteFreeBtn" data-i18n="deleteFreeBtn">Tüm şifresiz kanalları sil</button>
+          <div class="menu-sep"></div>
+          <div class="menu-title" data-i18n="menuDeleteOtherTitle">Diğer</div>
+          <button class="btn danger" id="deleteEmptyBtn" data-i18n="deleteEmptyBtn">Boş isimli kanalları sil</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hint" data-i18n-html="hintHtml">
+      💡 İpucu: Bir satıra tıklayıp seç, sonra <kbd>Shift</kbd> tuşunu basılı tutarak başka bir satıra tıkla &mdash;
+      aradaki tüm kanallar tek seferde seçilir.
+    </div>
+
+    <div class="stats">
+      <span><span data-i18n="statTotalLabel">Toplam kayıt:</span> <b id="statTotal">0</b></span>
+      <span><span data-i18n="statUsedLabel">Kullanılan:</span> <b id="statUsed">0</b></span>
+      <span><span data-i18n="statEncLabel">Şifreli:</span> <b id="statEnc">0</b></span>
+      <span><span data-i18n="statFreeLabel">Şifresiz:</span> <b id="statFree">0</b></span>
+      <span><span data-i18n="statDeletedLabel">Silinen (bu oturumda):</span> <b id="statDeleted">0</b></span>
+      <span><span data-i18n="statShownLabel">Gösterilen:</span> <b id="statShown">0</b></span>
+      <span><span data-i18n="statSelectedLabel">Seçili:</span> <b id="statSelected">0</b></span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18px"></th>
+            <th style="width:26px"><input type="checkbox" id="headerCheck"></th>
+            <th data-sort="channelNo" style="width:70px" data-i18n="thNo">No ▾</th>
+            <th data-sort="name" data-i18n="thName">Kanal Adı</th>
+            <th data-sort="serviceType" style="width:70px" data-i18n="thType">Tür</th>
+            <th data-sort="encrypted" style="width:90px" data-i18n="thEnc">Şifreli</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="footer-note" data-i18n="footerNote">
+      Not: Bu araç yeni nesil Samsung TV'lerin SQLite tabanlı ZIP kanal listesini düzenler. Kanal adı, kanal numarası, şifreli bayrağı ve silme işlemleri test edilip doğrulanmıştır. Kaydetmeden önce orijinal dosyanın bir yedeğini almanı öneririz.
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="pickerOverlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 data-i18n="pickerTitle">🎯 Aratarak Sıra Oluştur</h3>
+        <button class="close-x" id="pickerCloseX">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-col">
+          <div class="modal-col-title"><span data-i18n="pickerColSearch">Kanal ara</span><span id="pickerResultCount"></span></div>
+          <input type="text" class="modal-search" id="pickerSearch" data-i18n-placeholder="pickerSearchPlaceholder"
+            placeholder="Yazmaya başla, kanal adında ara..." autocomplete="off">
+          <div class="pick-list" id="pickerResults"></div>
+        </div>
+        <div class="modal-col">
+          <div class="modal-col-title"><span data-i18n="pickerColChosen">Seçilen sıra</span><span id="pickerCount">0</span></div>
+          <div class="pick-list" id="pickerChosen"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <label><span data-i18n="startNoLabel">Başlangıç No:</span> <input type="number" id="pickerStart" value="1" min="0" max="65535" style="width:70px"></label>
+        <div class="spacer"></div>
+        <button class="btn" id="pickerClearBtn" data-i18n="pickerClearBtn">Listeyi Temizle</button>
+        <button class="btn" id="pickerCancelBtn" data-i18n="pickerCancelBtn">İptal</button>
+        <button class="btn primary" id="pickerSaveBtn" data-i18n="pickerSaveBtn">💾 Kaydet ve Başa Uygula</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <a href="https://x.com/sezeriltekin" target="_blank" rel="noopener noreferrer">Sezer İltekin</a> - 2026
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
