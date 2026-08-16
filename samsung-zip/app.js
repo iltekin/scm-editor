@@ -503,6 +503,7 @@
   let selectedSet = new Set();
   let lastClickedIndex = -1;
   let pickerChosenList = [];
+  let dragId = null;
 
   // DOM Elements
   const dropzone = document.getElementById("dropzone");
@@ -776,11 +777,12 @@
       });
 
       // Drag & Drop
-      tr.addEventListener("dragstart", (e) => {
+      tr.addEventListener("dragstart", () => {
+        dragId = ch.id;
         tr.classList.add("dragging");
-        e.dataTransfer.setData("text/plain", ch.id);
       });
       tr.addEventListener("dragend", () => {
+        dragId = null;
         tr.classList.remove("dragging");
         document.querySelectorAll("tr.drop-target").forEach(r => r.classList.remove("drop-target"));
       });
@@ -794,9 +796,8 @@
       tr.addEventListener("drop", (e) => {
         e.preventDefault();
         tr.classList.remove("drop-target");
-        const draggedId = e.dataTransfer.getData("text/plain");
-        if (draggedId && draggedId !== ch.id) {
-          moveChannelBefore(draggedId, ch.id);
+        if (dragId && dragId !== ch.id) {
+          moveChannelBefore(dragId, ch.id);
         }
       });
 
@@ -824,12 +825,25 @@
   }
 
   function moveChannelBefore(sourceId, targetId) {
-    const srcIdx = allChannels.findIndex(c => c.id === sourceId);
-    const tgtIdx = allChannels.findIndex(c => c.id === targetId);
-    if (srcIdx === -1 || tgtIdx === -1) return;
+    const list = allChannels.filter(c => !c.deleted);
+    const srcIdx = list.findIndex(c => c.id === sourceId);
+    const tgtIdx = list.findIndex(c => c.id === targetId);
+    if (srcIdx === -1 || tgtIdx === -1 || srcIdx === tgtIdx) return;
 
-    const [item] = allChannels.splice(srcIdx, 1);
-    allChannels.splice(tgtIdx, 0, item);
+    const [item] = list.splice(srcIdx, 1);
+    list.splice(tgtIdx, 0, item);
+
+    const activeIds = new Set(list.map(c => c.id));
+    const deletedChannels = allChannels.filter(c => !activeIds.has(c.id));
+    allChannels = [...list, ...deletedChannels];
+
+    const start = parseInt(renumberStartInput.value, 10) || 1;
+    list.forEach((ch, idx) => {
+      ch.channelNo = start + idx;
+    });
+
+    sortState.col = "channelNo";
+    sortState.asc = true;
     render();
   }
 
