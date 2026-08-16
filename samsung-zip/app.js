@@ -5,6 +5,7 @@
   const I18N = {
     tr: {
       pageTitle: "Samsung ZIP Kanal Listesi Düzenleyici",
+      backToHub: "← Ana Menü",
       backToScm: "← SCM Editörüne Dön",
       h1: "📡 Samsung ZIP Kanal Listesi Düzenleyici",
       headerSub: "Yeni Samsung TV ZIP formatı (Channel_list_....zip) — tamamen tarayıcıda çalışır",
@@ -134,6 +135,7 @@
     },
     en: {
       pageTitle: "Samsung ZIP Channel List Editor",
+      backToHub: "← Main Menu",
       backToScm: "← Back to SCM Editor",
       h1: "📡 Samsung ZIP Channel List Editor",
       headerSub: "New Samsung TV ZIP format (Channel_list_....zip) — runs entirely in your browser",
