@@ -505,7 +505,7 @@
   let selectedSet = new Set();
   let lastClickedIndex = -1;
   let pickerChosenList = [];
-  let dragId = null;
+  let dragIds = [];
 
   // DOM Elements
   const dropzone = document.getElementById("dropzone");
@@ -780,13 +780,22 @@
 
       // Drag & Drop
       tr.addEventListener("dragstart", () => {
-        dragId = ch.id;
+        dragIds = (selectedSet.has(ch.id) && selectedSet.size > 1) ? [...selectedSet] : [ch.id];
         tr.classList.add("dragging");
+        if (dragIds.length > 1) {
+          allChannels.forEach(c => {
+            if (dragIds.includes(c.id)) {
+              const row = tbody.querySelector(`tr[data-id="${c.id}"]`);
+              if (row) row.classList.add("dragging");
+            }
+          });
+        }
       });
       tr.addEventListener("dragend", () => {
-        dragId = null;
-        tr.classList.remove("dragging");
-        document.querySelectorAll("tr.drop-target").forEach(r => r.classList.remove("drop-target"));
+        dragIds = [];
+        document.querySelectorAll("tr.dragging, tr.drop-target").forEach(r => {
+          r.classList.remove("dragging", "drop-target");
+        });
       });
       tr.addEventListener("dragover", (e) => {
         e.preventDefault();
@@ -798,8 +807,11 @@
       tr.addEventListener("drop", (e) => {
         e.preventDefault();
         tr.classList.remove("drop-target");
-        if (dragId && dragId !== ch.id) {
-          moveChannelBefore(dragId, ch.id);
+        if (dragIds.length === 0 || dragIds.includes(ch.id)) return;
+        if (dragIds.length === 1) {
+          moveChannelBefore(dragIds[0], ch.id);
+        } else {
+          moveGroupBefore(dragIds, ch.id);
         }
       });
 
@@ -833,7 +845,8 @@
     if (srcIdx === -1 || tgtIdx === -1 || srcIdx === tgtIdx) return;
 
     const [item] = list.splice(srcIdx, 1);
-    list.splice(tgtIdx, 0, item);
+    const adjustedTgt = srcIdx < tgtIdx ? tgtIdx - 1 : tgtIdx;
+    list.splice(adjustedTgt, 0, item);
 
     const activeIds = new Set(list.map(c => c.id));
     const deletedChannels = allChannels.filter(c => !activeIds.has(c.id));
@@ -841,6 +854,34 @@
 
     const start = parseInt(renumberStartInput.value, 10) || 1;
     list.forEach((ch, idx) => {
+      ch.channelNo = start + idx;
+    });
+
+    sortState.col = "channelNo";
+    sortState.asc = true;
+    render();
+  }
+
+  function moveGroupBefore(sourceIds, targetId) {
+    const list = allChannels.filter(c => !c.deleted);
+    const idSet = new Set(sourceIds.map(String));
+    if (idSet.size === 0) return;
+    if (list.findIndex(c => c.id === targetId) === -1) return;
+
+    const group = list.filter(c => idSet.has(c.id));
+    if (group.length === 0) return;
+    const rest = list.filter(c => !idSet.has(c.id));
+
+    const insertPos = rest.findIndex(c => c.id === targetId);
+    if (insertPos === -1) rest.push(...group);
+    else rest.splice(insertPos, 0, ...group);
+
+    const activeIds = new Set(rest.map(c => c.id));
+    const deletedChannels = allChannels.filter(c => !activeIds.has(c.id));
+    allChannels = [...rest, ...deletedChannels];
+
+    const start = parseInt(renumberStartInput.value, 10) || 1;
+    rest.forEach((ch, idx) => {
       ch.channelNo = start + idx;
     });
 
