@@ -759,8 +759,11 @@
   }
 
   function reorderBySlots(fromSlot, toSlot) {
-    // work on currently visible list order, move fromSlot to before toSlot, then renumber sequentially
-    const list = visibleList();
+    // Always reorder against the full active channel list (not the current
+    // filtered/search view) so a drag never leaves channels outside the
+    // current filter with stale numbers while the visible ones get
+    // renumbered around them.
+    const list = allActive();
     const fromIdx = list.findIndex(r => r.slot === fromSlot);
     const toIdx = list.findIndex(r => r.slot === toSlot);
     if (fromIdx === -1 || toIdx === -1) return;
