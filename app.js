@@ -469,6 +469,7 @@
   const OFF_NAME = 36;
   const NAME_BYTES = 96; // 48 UTF-16 code units
   const OFF_ENCRYPTED = 136;
+  const OFF_CHECKSUM = 167; // last byte: sum of bytes [0,167) mod 256
 
   function serviceLabel(t) {
     if (t === 25 || t === 0x11 || t === 0x19) return "hd";
@@ -530,6 +531,13 @@
       nameArea[i * 2] = (code >> 8) & 0xFF;
       nameArea[i * 2 + 1] = code & 0xFF;
     }
+    // The last byte of every record is a checksum: the sum of the
+    // preceding 167 bytes, mod 256. Confirmed against a real channel list
+    // exported by the TV itself. Must be recomputed whenever a record's
+    // content changes, or the TV may treat the record/list as invalid.
+    let sum = 0;
+    for (let i = 0; i < OFF_CHECKSUM; i++) sum += rec.raw[i];
+    rec.raw[OFF_CHECKSUM] = sum & 0xFF;
   }
 
   function recordsToBuffer(records) {
