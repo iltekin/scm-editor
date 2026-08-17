@@ -609,6 +609,9 @@
 
       dbFileName = targetEntry.name;
       sqliteDbInstance = new SQLModule.Database(targetEntry.data);
+      // Without this, deleting a channel leaves orphaned rows in SRV_DVB/SRV_EXT_APP/etc.
+      // since their ON DELETE CASCADE never fires with foreign_keys off (SQLite's default).
+      sqliteDbInstance.run("PRAGMA foreign_keys = ON");
 
       // Query SRV table
       const res = sqliteDbInstance.exec(
