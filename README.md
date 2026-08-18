@@ -82,7 +82,8 @@ SCM editörü Samsung UE40ES8000 (2012 model) televizyonundan alınan bir `.scm`
 
 ## Tarayıcı gereksinimleri
 
-Modern bir tarayıcı gerekir. Araçlar tarayıcının sıkıştırma API'lerini ve ZIP editörü ayrıca WebAssembly desteğini kullanır.
+Modern bir tarayıcı gerekir (Chrome, Edge, Safari 16.4+, Firefox 113+) — CompressionStream/DecompressionStream API'lerini destekleyen herhangi bir sürüm. Araç bu API'ler yoksa uyarı gösterir.
+
 
 ---
 
