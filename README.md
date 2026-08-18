@@ -1,119 +1,174 @@
-# SCM Kanal Listesi Düzenleyici
+# Samsung Kanal Listesi Editörleri
 
 ![TV Kanal Listesi Yönetim Rehberi (4 Adım): 1. TV'den flash belleğe aktarma, 2. Bilgisayarda düzenleme, 3. Düzenlenen listeyi kaydetme, 4. TV'ye içe aktarma](docs/kullanim-rehberi.png)
 
-Eski Samsung televizyonlardan USB ile alınan uydu kanal listesi (`.scm`) dosyalarını düzenlemek için tamamen tarayıcı içinde çalışan bir araç.
+Samsung televizyonlardan USB ile dışa aktarılan kanal listelerini düzenlemek için tamamen tarayıcı içinde çalışan iki ayrı araç.
 
 **Canlı adres:** [iltekin.github.io/scm-editor](https://iltekin.github.io/scm-editor)
 
-## Bu araç ne işe yarar?
+## Editörler
 
-Samsung TV'nin uydu aramasıyla oluşturduğu `channel_list_....scm` dosyasını açıp:
+### SCM Kanal Editörü
+
+2014 ve öncesi yıllarda üretilmiş eski Samsung televizyonlar için (ES/F/H serileri vb.) kanal listesi düzenleme aracı.
+
+- **Dosya türü:** `channel_list_....scm`
+- **Dizin:** [`samsung-scm/`](samsung-scm/)
+- `.scm` arşivindeki binary kanal kayıtlarını okur, düzenler ve tekrar paketler.
+
+[SCM Editörünü Aç](samsung-scm/index.html)
+
+### ZIP Kanal Editörü
+
+2015 ve sonrası yıllarda üretilmiş modern Samsung Smart TV'ler için SQLite altyapılı kanal listesi düzenleme aracı.
+
+- **Dosya türü:** `Channel_list_....zip`
+- **Dizin:** [`samsung-zip/`](samsung-zip/)
+- **İçerik:** Uydu ve kablo kanal verilerini barındıran `dvbs`, `sat` vb. SQLite veritabanları
+- Paket içindeki veritabanlarını WebAssembly tabanlı SQLite motoruyla doğrudan tarayıcıda açar ve düzenler.
+- Samsung'un kanal adlarında kullandığı **byte-swapped UTF-16 BE** metin kodlamasını otomatik olarak çözer ve aynı biçimde kaydeder.
+- Güncellenen veritabanlarını televizyona geri yüklenebilecek geçerli bir `.zip` paketi olarak yeniden oluşturur.
+
+[ZIP Editörünü Aç](samsung-zip/index.html)
+
+> Bu iki dosya türü birbirinden farklıdır. Televizyonunuzdan dışa aktarılan dosyanın uzantısına göre `.scm` veya `.zip` editörünü seçin.
+
+## Özellikler
+
+Her iki editörle de:
 
 - Kanalları **yeniden adlandırabilir**,
-- Kanal **numaralarını (sırasını)** değiştirebilir,
-- Kanalları **toplu silebilir** (tek tek, tür bazlı: SD/HD/Radyo, şifre durumuna göre: şifreli/şifresiz, ya da boş isimli kayıtları),
-- **Aratarak sıra oluşturabilir**: arama kutusuna yazıp tıkladığın kanalları istediğin sırayla listenin başına taşıyabilir,
-- Radyoları/şifreli kanalları/seçili kanalları listenin **başına veya sonuna** taşıyabilir,
+- Kanal **numaralarını ve sırasını** değiştirebilir,
+- Kanalları tek tek veya toplu olarak **silebilir**,
+- Arama yaparak özel bir kanal sırası oluşturabilir,
+- Radyoları, şifreli kanalları veya seçili kanalları listenin başına ya da sonuna taşıyabilir,
+- Düzenlenen listeyi televizyona geri yüklemeye uygun dosya türünde indirebilirsiniz.
 
-ve sonunda değişiklikleri yeni bir `.scm` dosyası olarak indirip TV'ye geri yükleyebilirsin.
-
-Arayüz **Türkçe ve İngilizce** olarak kullanılabilir (sağ üstteki dil düğmesiyle anında değişir); varsayılan dil Türkçe'dir.
+Arayüz **Türkçe ve İngilizce** kullanılabilir.
 
 ## Nasıl çalışır?
 
-- **Sunucu yok, kurulum yok.** `index.html` dosyasını çift tıklayıp açman ya da yukarıdaki adrese girmen yeterli.
-- Yüklediğin `.scm` dosyası **hiçbir zaman internete/sunucuya gönderilmez** — her şey kendi tarayıcının belleğinde işlenir. İstersen tamamen internet bağlantısını keserek de kullanabilirsin.
-- `.scm` dosyası aslında bir ZIP arşividir; içindeki `map-SateD` dosyası uydu kanallarının kayıtlı olduğu binary veri bloğudur. Bu araç o veriyi tarayıcının yerleşik `CompressionStream`/`DecompressionStream` API'leri ile açıp düzenler ve tekrar paketler. Diğer tüm dosyalar (transponder veritabanı, uydu veritabanı vb.) değiştirilmeden aynen korunur.
+- **Sunucu yok, kurulum yok.** Canlı adresi kullanabilir veya ilgili `index.html` dosyasını bir tarayıcıda açabilirsiniz.
+- Yüklediğiniz kanal listesi **internete veya bir sunucuya gönderilmez**; bütün işlemler tarayıcınızın belleğinde gerçekleşir.
+- SCM editörü `.scm` arşivindeki binary kanal kayıtlarını işler.
+- ZIP editörü, beraberinde gelen `lib/sql-wasm.js` ve `lib/sql-wasm.wasm` dosyalarını kullanarak `Channel_list_....zip` paketindeki SQLite veritabanlarını tarayıcı içinde okur ve yazar.
+- Düzenleme tamamlandığında kanal veritabanları özgün paket yapısına geri konur ve yeni bir `.zip` dosyası olarak indirilir.
 
 ## Kullanım
 
-1. [index.html](index.html) dosyasını bir tarayıcıda aç (çift tıklayarak veya `iltekin.github.io/scm-editor` adresinden).
-2. TV'den USB ile aldığın `.scm` dosyasını sürükle-bırak yap veya seç.
-3. Kanalları düzenle, sırala, sil.
-4. **"Kaydet (.scm indir)"** butonuna bas, indirilen dosyayı USB belleğe kopyala.
-5. USB belleği TV'ye takıp "Kanal Listesini Yükle" seçeneğiyle geri yükle.
+1. [Ana sayfayı](index.html) açın ve dosyanızın türüne uygun editörü seçin.
+2. Televizyondan USB ile dışa aktardığınız `.scm` veya `.zip` dosyasını sürükleyip bırakın ya da dosya seçiciden açın.
+3. Kanalları düzenleyin, sıralayın veya silin.
+4. Kaydet düğmesine basarak düzenlenen dosyayı indirin.
+5. Dosyayı USB belleğe kopyalayıp televizyonunuzdaki kanal listesini içe aktarma seçeneğiyle geri yükleyin.
 
-**Önemli:** Kaydetmeden önce orijinal `.scm` dosyanın bir yedeğini bir kenara koy. Bir sorun çıkarsa orijinaline dönebilmen için.
+**Önemli:** Düzenlemeye başlamadan önce televizyonunuzdan aldığınız orijinal dosyanın yedeğini saklayın.
 
-Elinde henüz kendi `.scm` dosyan yoksa, ilk ekrandaki **"Örnek dosyayı yükle"** bağlantısıyla [example/](example/) klasöründeki gerçek bir kanal listesiyle aracı hemen deneyebilirsin. *(Bu bağlantı yalnızca canlı adres gibi http(s) üzerinden açıldığında çalışır; dosyayı bilgisayarından çift tıklayıp `file://` ile açtığında tarayıcı güvenlik politikası nedeniyle çalışmayabilir — bu durumda kendi `.scm` dosyanı sürükle-bırak ile yükleyebilirsin.)*
+## Proje yapısı
 
-## Dosya yapısı
-
+```text
+index.html          – SCM ve ZIP editörleri için ana seçim sayfası
+style.css           – ana sayfanın stilleri
+docs/               – dokümantasyon görselleri
+samsung-scm/        – eski Samsung TV'lerin .scm dosyaları için editör
+samsung-zip/        – modern Samsung TV'lerin SQLite tabanlı .zip dosyaları için editör
 ```
-index.html          – ana seçim ve kırılım sayfası (Hub)
-style.css            – genel tasarım & tema stilleri
-samsung-scm/        – eski Samsung TV'ler (.scm) için ayrı dizinde çalışan editör
-samsung-zip/        – yeni Samsung TV'ler (Channel_list_....zip, SQLite) için ayrı dizinde çalışan editör
-```
 
-## Format hakkında not
+## Uyumluluk notu
 
-`.scm` formatı için resmi bir Samsung belgesi yoktur. Bu araçtaki kanal kaydı yapısı (isim, kanal numarası, servis tipi, şifreli/şifresiz bayrağı gibi alanların dosyadaki byte konumları), dosya içeriği doğrudan incelenerek **tersine mühendislikle** çözülmüştür.
+Samsung kanal listesi biçimleri için kapsamlı ve resmi bir belge bulunmadığından dosya yapıları tersine mühendislikle çözümlenmiştir. Dosya içeriği model, seri, bölge veya yazılım sürümüne göre değişebilir.
 
-**Bu araç yalnızca Samsung UE40ES8000 (2012 model) TV'den alınan bir `.scm` dosyasıyla test edilmiştir.** Başka model veya yıldaki Samsung TV'lerde dosya yapısı farklı olabilir; bu durumda kanal adları yanlış görünebilir veya dosya hiç açılamayabilir. Farklı bir modelde deneyeceksen mutlaka önce orijinal dosyanın yedeğini al.
+SCM editörü Samsung UE40ES8000 (2012 model) televizyonundan alınan bir `.scm` dosyasıyla test edilmiştir. Farklı modellerde kanal adları yanlış görünebilir veya dosya açılamayabilir. ZIP biçiminde de televizyonun oluşturduğu SQLite şeması modele göre farklılık gösterebilir. Her iki durumda da orijinal dosyanızın yedeğini saklayın.
 
 ## Tarayıcı gereksinimleri
 
-Modern bir tarayıcı gerekir (Chrome, Edge, Safari 16.4+, Firefox 113+) — `CompressionStream`/`DecompressionStream` API'lerini destekleyen herhangi bir sürüm. Araç bu API'ler yoksa uyarı gösterir.
+Modern bir tarayıcı gerekir (Chrome, Edge, Safari 16.4+, Firefox 113+) — CompressionStream/DecompressionStream API'lerini destekleyen herhangi bir sürüm. Araç bu API'ler yoksa uyarı gösterir.
+
 
 ---
 
-# SCM Channel List Editor
+# Samsung Channel List Editors
 
-A tool that runs entirely in your browser for editing satellite channel list (`.scm`) files exported via USB from old Samsung TVs.
+Two separate, fully browser-based tools for editing channel lists exported from Samsung TVs via USB.
 
 **Live URL:** [iltekin.github.io/scm-editor](https://iltekin.github.io/scm-editor)
 
-## What does this tool do?
+## Editors
 
-Opens the `channel_list_....scm` file created by your Samsung TV's satellite scan and lets you:
+### SCM Channel Editor
+
+A channel list editor for older Samsung TVs manufactured in 2014 or earlier, including ES, F, and H series models.
+
+- **File type:** `channel_list_....scm`
+- **Directory:** [`samsung-scm/`](samsung-scm/)
+- Reads and updates the binary channel records stored in the `.scm` archive.
+
+[Open the SCM Editor](samsung-scm/index.html)
+
+### ZIP Channel Editor
+
+A SQLite-based channel list editor for modern Samsung Smart TVs manufactured in 2015 or later.
+
+- **File type:** `Channel_list_....zip`
+- **Directory:** [`samsung-zip/`](samsung-zip/)
+- **Contents:** SQLite databases such as `dvbs` and `sat`, containing satellite and cable channel data
+- Opens and updates the packaged databases directly in the browser using a WebAssembly-based SQLite engine.
+- Automatically decodes Samsung's **byte-swapped UTF-16 BE** channel names and saves them in the same format.
+- Rebuilds the updated databases as a valid `.zip` package that can be imported back into the TV.
+
+[Open the ZIP Editor](samsung-zip/index.html)
+
+> These are different file formats. Choose the `.scm` or `.zip` editor based on the file exported by your TV.
+
+## Features
+
+Both editors let you:
 
 - **Rename** channels,
-- Change channel **numbers (order)**,
-- **Bulk-delete** channels (one by one, by type: SD/HD/Radio, by encryption status: encrypted/free-to-air, or empty-named records),
-- **Build a custom order by searching**: type in the search box, click the channels you want, and move them to the top of the list in exactly that order,
-- Move radios/encrypted channels/selected channels to the **top or bottom** of the list,
+- Change channel **numbers and order**,
+- **Delete** channels individually or in bulk,
+- Build a custom channel order using search,
+- Move radio, encrypted, or selected channels to the top or bottom,
+- Download the edited list in the correct format for importing back into the TV.
 
-and finally download the changes as a new `.scm` file and load it back onto your TV.
-
-The interface is available in **Turkish and English** (switch instantly with the language button in the top right); the default language is Turkish.
+The interface is available in **Turkish and English**.
 
 ## How it works
 
-- **No server, no install.** Just double-click `index.html` to open it, or visit the URL above.
-- The `.scm` file you upload is **never sent to a server or the internet** — everything is processed in your own browser's memory. You can even use it fully offline.
-- A `.scm` file is actually a ZIP archive; the `map-SateD` entry inside it is the binary data block holding the satellite channels. This tool decompresses that data using the browser's built-in `CompressionStream`/`DecompressionStream` APIs, edits it, and repacks it. All other entries (transponder database, satellite database, etc.) are preserved unchanged.
+- **No server and no installation.** Use the live site or open the relevant `index.html` file in a browser.
+- Uploaded channel lists are **never sent to the internet or a server**; all processing happens in your browser's memory.
+- The SCM editor processes binary channel records stored in the `.scm` archive.
+- The ZIP editor uses the bundled `lib/sql-wasm.js` and `lib/sql-wasm.wasm` files to read and write the SQLite databases inside `Channel_list_....zip` in the browser.
+- Once editing is complete, the channel databases are placed back into the original package structure and downloaded as a new `.zip` file.
 
 ## Usage
 
-1. Open [index.html](index.html) in a browser (double-click it, or visit `iltekin.github.io/scm-editor`).
-2. Drag & drop or select the `.scm` file you got from your TV via USB.
-3. Edit, sort, and delete channels as needed.
-4. Click **"Save (download .scm)"** and copy the downloaded file to your USB drive.
-5. Plug the USB drive into your TV and reload the channel list via "Load Channel List" (or the equivalent option).
+1. Open the [home page](index.html) and select the editor matching your file type.
+2. Drag and drop or select the `.scm` or `.zip` file exported from your TV via USB.
+3. Edit, reorder, or delete channels.
+4. Download the edited file using the save button.
+5. Copy it to a USB drive and import the channel list back into your TV.
 
-**Important:** Keep a backup of your original `.scm` file before saving. That way you can always go back if something goes wrong.
+**Important:** Always keep a backup of the original file exported by your TV before editing it.
 
-Don't have your own `.scm` file yet? Use the **"Load the example file"** link on the first screen to try the tool immediately with a real channel list from the [example/](example/) folder. *(This link only works when the page is served over http(s), like the live URL — it may not work if you open the file directly via `file://`, due to browser security policy. In that case, drag & drop your own `.scm` file instead.)*
+## Project structure
 
-## File structure
-
+```text
+index.html          – home page for choosing the SCM or ZIP editor
+style.css           – home page styles
+docs/               – documentation images
+samsung-scm/        – editor for .scm files from older Samsung TVs
+samsung-zip/        – editor for SQLite-based .zip files from modern Samsung TVs
 ```
-index.html          – page skeleton
-style.css            – styling
-app.js               – all logic (ZIP read/write, channel record parsing, UI, translations)
-example/*.scm        – sample channel list for trying out the tool
-```
 
-## A note on the format
+## Compatibility note
 
-There is no official Samsung documentation for the `.scm` format. The channel record layout used by this tool (byte offsets for fields like name, channel number, service type, and the encrypted/free-to-air flag) was **reverse-engineered** by directly inspecting file contents.
+Because there is no comprehensive official documentation for Samsung channel list formats, these file structures were reverse-engineered. Their contents may vary by model, series, region, or firmware version.
 
-**This tool has only been tested with a `.scm` file exported from a Samsung UE40ES8000 (2012 model) TV.** The file structure may differ on other Samsung TV models or years; in that case channel names may appear incorrect, or the file may fail to open at all. If you try it with a different model, be sure to back up your original file first.
+The SCM editor has been tested with a `.scm` file exported from a Samsung UE40ES8000 (2012 model). Other models may display channel names incorrectly or fail to open. The SQLite schema used by ZIP files may also vary between TV models. Keep a backup of the original file in either case.
 
 ## Browser requirements
 
-A modern browser is required (Chrome, Edge, Safari 16.4+, Firefox 113+) — any version that supports the `CompressionStream`/`DecompressionStream` APIs. The tool shows a warning if these APIs are unavailable.
+A modern browser is required. The tools use browser compression APIs, and the ZIP editor also requires WebAssembly support.
 
 **Author:** Sezer İltekin ([x.com/sezeriltekin](https://x.com/sezeriltekin))
