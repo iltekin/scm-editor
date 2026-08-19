@@ -31,11 +31,10 @@
       openPickerBtn: "🎯 Aratarak Sıra Oluştur",
       deleteBtn: "🗑 Seçilenleri Sil",
       undeleteBtn: "↺ Seçilenleri Geri Al",
-      sortMenuBtn: "🔀 Sıralama Modları ▾",
-      menuRenumberTitle: "Yeniden numarala",
+      sortMenuBtn: "🔀 Kanal Sırası ▾",
+      sortMenuHelp: "Bu seçenekler yalnızca yeni sırayı önizler; kanal numaraları sen uygulayana kadar değişmez.",
       startNoLabel: "Başlangıç No:",
-      renumberBtn: "🔢 Görünen sıraya göre numarala",
-      menuSortGroupTitle: "Gruba göre sırala",
+      menuSortGroupTitle: "Sıra oluştur (önizleme)",
       sortNameBtn: "🔤 İsme göre sırala (A-Z)",
       selFirstBtn: "⬆ Seçilenleri başa al",
       selLastBtn: "⬇ Seçilenleri sona al",
@@ -54,6 +53,7 @@
       deleteFreeBtn: "Tüm şifresiz kanalları sil",
       menuDeleteOtherTitle: "Diğer",
       deleteEmptyBtn: "Boş isimli kanalları sil",
+      deleteDuplicateBtn: "Mükerrer kanalları sil (HD'yi koru)",
       hintHtml: '💡 İpucu: Bir satıra tıklayıp seç, sonra <kbd>Shift</kbd> tuşunu basılı tutarak başka bir satıra tıkla — aradaki tüm kanallar (örn. ilk 10, ilk 20, ya da herhangi bir aralık) tek seferde seçilir.',
       statTotalLabel: "Toplam kayıt:",
       statUsedLabel: "Kullanılan:",
@@ -63,6 +63,7 @@
       statShownLabel: "Gösterilen:",
       statSelectedLabel: "Seçili:",
       thNo: "No ▾",
+      thOrder: "Sıra",
       thName: "Kanal Adı",
       thType: "Tür",
       thEnc: "Şifreli",
@@ -89,19 +90,32 @@
       exampleNotFound: "Örnek dosya bulunamadı (HTTP {status})",
       exampleLoadFailed: "Örnek dosya yüklenemedi: {msg}",
       noChannelsInView: "Görünen listede kanal yok.",
+      draftOrderTitle: "Yeni kanal sırası önizleniyor",
+      draftOrderCount: "{count} kanal — mevcut numaralar henüz değişmedi.",
+      manualNumberTitle: "Manuel kanal numarası değişikliği bekliyor",
+      manualNumberCount: "{count} numara değişikliği — uygulayana kadar satırlar yerinde kalır.",
+      applyOrderChangesBtn: "Uygula",
+      cancelDraftOrderBtn: "Vazgeç",
+      draftOrderApplied: "Yeni sıra {start}'den başlayarak {count} kanalın numaralarına uygulandı.",
+      draftOrderCancelled: "Taslak kanal sırası iptal edildi.",
+      manualNumbersApplied: "{count} manuel kanal numarası değişikliği uygulandı.",
+      manualNumbersCancelled: "Manuel kanal numarası değişiklikleri iptal edildi.",
+      resolveManualFirst: "Yeni bir sıra oluşturmadan önce manuel numara değişikliklerini uygula veya iptal et.",
+      finishDraftFirst: "Tabloyu farklı sıralamak için önce taslak sırayı uygula veya iptal et.",
+      applyDraftBeforeSave: "Kaydetmeden önce bekleyen sıra veya numara değişikliklerini uygula ya da iptal et.",
       firstNSelected: "İlk {n} kanal seçildi.",
       confirmDeleteSelected: "{n} kanal silinsin mi? (Kaydetmeden önce geri alabilirsin)",
       selectToDeleteFirst: "Önce silinecek kanalları seç.",
       selectToRestoreFirst: "Önce geri alınacak kanalları seç.",
       renumberedFrom: "{n} kanal {start}'den başlayarak yeniden numaralandı.",
-      sortedByName: "İsme göre sıralandı",
-      selectedToTop: "Seçilenler başa alındı",
-      selectedToBottom: "Seçilenler sona alındı",
-      radiosToTop: "Radyolar başa alındı",
-      radiosToBottom: "Radyolar sona alındı",
-      encToTop: "Şifreliler başa alındı",
-      encToBottom: "Şifreliler sona alındı",
-      orderAppliedSuffix: " ({count} kanal, {start}'den başlayarak numaralandı).",
+      sortedByName: "İsme göre sıra önizlemesi hazır",
+      selectedToTop: "Seçilenlerin başta olduğu sıra önizleniyor",
+      selectedToBottom: "Seçilenlerin sonda olduğu sıra önizleniyor",
+      radiosToTop: "Radyoların başta olduğu sıra önizleniyor",
+      radiosToBottom: "Radyoların sonda olduğu sıra önizleniyor",
+      encToTop: "Şifrelilerin başta olduğu sıra önizleniyor",
+      encToBottom: "Şifrelilerin sonda olduğu sıra önizleniyor",
+      orderAppliedSuffix: " ({count} kanal; numaralar henüz değişmedi).",
       noMatchingGroup: "Bu gruba uyan kanal yok.",
       selectChannelFirst: "Önce kanal seç.",
       labelAllEncrypted: "Tüm şifreli kanallar",
@@ -111,6 +125,7 @@
       labelAllSd: "Tüm SD kanallar",
       labelAllHd: "Tüm HD kanallar",
       labelEmptyNamed: "Boş isimli kanallar",
+      labelDuplicateNamed: "Mükerrer kanallar (HD tercih edilir)",
       confirmDeleteGroup: "{label}: {count} kanal silinsin mi? (Kaydetmeden önce geri alabilirsin)",
       deletedGroupToast: "{count} kanal silindi ({label}).",
       pickerStartHint: "Aramaya başla — sonuçlar burada listelenecek.",
@@ -160,11 +175,10 @@
       openPickerBtn: "🎯 Build Order by Searching",
       deleteBtn: "🗑 Delete Selected",
       undeleteBtn: "↺ Restore Selected",
-      sortMenuBtn: "🔀 Sort Modes ▾",
-      menuRenumberTitle: "Renumber",
+      sortMenuBtn: "🔀 Channel Order ▾",
+      sortMenuHelp: "These actions only preview a new order; channel numbers stay unchanged until you apply it.",
       startNoLabel: "Start No.:",
-      renumberBtn: "🔢 Renumber by current view order",
-      menuSortGroupTitle: "Sort by group",
+      menuSortGroupTitle: "Build order (preview)",
       sortNameBtn: "🔤 Sort by name (A-Z)",
       selFirstBtn: "⬆ Move selected to top",
       selLastBtn: "⬇ Move selected to bottom",
@@ -183,6 +197,7 @@
       deleteFreeBtn: "Delete all free-to-air channels",
       menuDeleteOtherTitle: "Other",
       deleteEmptyBtn: "Delete channels with empty names",
+      deleteDuplicateBtn: "Delete duplicate channels (keep HD)",
       hintHtml: '💡 Tip: Click a row to select it, then hold <kbd>Shift</kbd> and click another row — every channel in between (e.g. the first 10, first 20, or any range) gets selected at once.',
       statTotalLabel: "Total records:",
       statUsedLabel: "Used:",
@@ -192,6 +207,7 @@
       statShownLabel: "Shown:",
       statSelectedLabel: "Selected:",
       thNo: "No ▾",
+      thOrder: "Order",
       thName: "Channel Name",
       thType: "Type",
       thEnc: "Encrypted",
@@ -218,19 +234,32 @@
       exampleNotFound: "Example file not found (HTTP {status})",
       exampleLoadFailed: "Failed to load example file: {msg}",
       noChannelsInView: "No channels in the current view.",
+      draftOrderTitle: "Previewing a new channel order",
+      draftOrderCount: "{count} channels — current numbers have not changed yet.",
+      manualNumberTitle: "Manual channel-number changes are pending",
+      manualNumberCount: "{count} number changes — rows stay in place until you apply them.",
+      applyOrderChangesBtn: "Apply",
+      cancelDraftOrderBtn: "Cancel",
+      draftOrderApplied: "The new order was applied to {count} channel numbers starting from {start}.",
+      draftOrderCancelled: "The draft channel order was cancelled.",
+      manualNumbersApplied: "{count} manual channel-number changes were applied.",
+      manualNumbersCancelled: "Manual channel-number changes were cancelled.",
+      resolveManualFirst: "Apply or cancel manual number changes before building a new order.",
+      finishDraftFirst: "Apply or cancel the draft order before sorting the table another way.",
+      applyDraftBeforeSave: "Apply or cancel pending order or number changes before saving.",
       firstNSelected: "First {n} channels selected.",
       confirmDeleteSelected: "Delete {n} channels? (You can restore them before saving)",
       selectToDeleteFirst: "Select channels to delete first.",
       selectToRestoreFirst: "Select channels to restore first.",
       renumberedFrom: "{n} channels renumbered starting from {start}.",
-      sortedByName: "Sorted by name",
-      selectedToTop: "Selected moved to top",
-      selectedToBottom: "Selected moved to bottom",
-      radiosToTop: "Radios moved to top",
-      radiosToBottom: "Radios moved to bottom",
-      encToTop: "Encrypted moved to top",
-      encToBottom: "Encrypted moved to bottom",
-      orderAppliedSuffix: " ({count} channels, numbered starting from {start}).",
+      sortedByName: "Name-order preview is ready",
+      selectedToTop: "Previewing selected channels at the top",
+      selectedToBottom: "Previewing selected channels at the bottom",
+      radiosToTop: "Previewing radio channels at the top",
+      radiosToBottom: "Previewing radio channels at the bottom",
+      encToTop: "Previewing encrypted channels at the top",
+      encToBottom: "Previewing encrypted channels at the bottom",
+      orderAppliedSuffix: " ({count} channels; numbers are unchanged for now).",
       noMatchingGroup: "No channels match this group.",
       selectChannelFirst: "Select a channel first.",
       labelAllEncrypted: "All encrypted channels",
@@ -240,6 +269,7 @@
       labelAllSd: "All SD channels",
       labelAllHd: "All HD channels",
       labelEmptyNamed: "Channels with empty names",
+      labelDuplicateNamed: "Duplicate channels (HD preferred)",
       confirmDeleteGroup: "{label}: delete {count} channels? (You can restore them before saving)",
       deletedGroupToast: "{count} channels deleted ({label}).",
       pickerStartHint: "Start typing — results will appear here.",
@@ -573,6 +603,8 @@
   let sortDir = 1;
   let originalFileName = "channel_list.scm";
   let lastClickedSlot = null;
+  let draftOrder = null; // slot ids in the previewed order; channelNo stays unchanged until applied
+  let pendingNumbers = new Map(); // slot -> staged channelNo
 
   const $ = (id) => document.getElementById(id);
   const tbody = $("tbody");
@@ -585,6 +617,53 @@
     setTimeout(() => el.remove(), 4200);
   }
 
+  function updateDraftOrderBar() {
+    const bar = $("orderDraftBar");
+    for (const slot of pendingNumbers.keys()) {
+      const record = records.find(r => r.slot === slot);
+      if (!record || record.deleted) pendingNumbers.delete(slot);
+    }
+    if (!draftOrder && pendingNumbers.size === 0) {
+      bar.classList.add("hidden");
+      return;
+    }
+    bar.classList.remove("hidden");
+    const isDraft = Boolean(draftOrder);
+    $("orderChangeTitle").textContent = t(isDraft ? "draftOrderTitle" : "manualNumberTitle");
+    $("draftStartControls").classList.toggle("hidden", !isDraft);
+    const count = isDraft ? records.filter(r => r.used && !r.deleted).length : pendingNumbers.size;
+    $("draftOrderCount").textContent = t(isDraft ? "draftOrderCount" : "manualNumberCount", { count });
+  }
+
+  function normalizedChannelName(name) {
+    return String(name || "")
+      .normalize("NFKC")
+      .trim()
+      .replace(/\s+/g, " ")
+      .toLocaleLowerCase("tr-TR");
+  }
+
+  function findDuplicateChannels() {
+    const groups = new Map();
+    for (const record of records.filter(r => r.used && !r.deleted)) {
+      const key = normalizedChannelName(record.name);
+      if (!key) continue;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(record);
+    }
+
+    const duplicates = [];
+    for (const group of groups.values()) {
+      if (group.length < 2) continue;
+      const ordered = group.slice().sort((a, b) => (a.channelNo - b.channelNo) || (a.slot - b.slot));
+      const hd = ordered.filter(r => serviceLabel(r.serviceType) === "hd");
+      const sd = ordered.filter(r => serviceLabel(r.serviceType) === "sd");
+      const keep = (hd.length ? hd : sd.length ? sd : ordered)[0];
+      duplicates.push(...ordered.filter(r => r !== keep));
+    }
+    return duplicates;
+  }
+
   async function handleFile(file) {
     try {
       $("status").textContent = t("loading");
@@ -594,6 +673,8 @@
       if (!sateEntry) throw new Error(t("noSateSection"));
       records = decodeRecords(sateEntry.data);
       selected.clear();
+      draftOrder = null;
+      pendingNumbers.clear();
       // Keep the exact original filename: some Samsung TVs require the .scm
       // filename to match a specific pattern (e.g. channel_list_<MODEL>_....scm)
       // to accept it via "Load Channel List". Adding a suffix here has been
@@ -627,13 +708,22 @@
     if (encFilter === "free") list = list.filter(r => !r.encrypted);
     if (typeFilter !== "all") list = list.filter(r => serviceLabel(r.serviceType) === typeFilter);
 
-    list.sort((a, b) => {
-      let av = a[sortKey], bv = b[sortKey];
-      if (typeof av === "string") { av = av.toLowerCase(); bv = bv.toLowerCase(); }
-      if (av < bv) return -1 * sortDir;
-      if (av > bv) return 1 * sortDir;
-      return a.channelNo - b.channelNo;
-    });
+    if (draftOrder) {
+      const orderIndex = new Map(draftOrder.map((slot, index) => [slot, index]));
+      list.sort((a, b) => {
+        const ai = orderIndex.has(a.slot) ? orderIndex.get(a.slot) : Number.MAX_SAFE_INTEGER;
+        const bi = orderIndex.has(b.slot) ? orderIndex.get(b.slot) : Number.MAX_SAFE_INTEGER;
+        return (ai - bi) || (a.channelNo - b.channelNo);
+      });
+    } else {
+      list.sort((a, b) => {
+        let av = a[sortKey], bv = b[sortKey];
+        if (typeof av === "string") { av = av.toLowerCase(); bv = bv.toLowerCase(); }
+        if (av < bv) return -1 * sortDir;
+        if (av > bv) return 1 * sortDir;
+        return a.channelNo - b.channelNo;
+      });
+    }
     return list;
   }
 
@@ -641,6 +731,15 @@
     const list = visibleList();
     tbody.innerHTML = "";
     const frag = document.createDocumentFragment();
+    const persistedSlots = records
+      .filter(r => r.used || r.deleted)
+      .slice()
+      .sort((a, b) => (a.channelNo - b.channelNo) || (a.slot - b.slot))
+      .map(r => r.slot);
+    const positionSlots = draftOrder
+      ? [...draftOrder, ...persistedSlots.filter(slot => !draftOrder.includes(slot))]
+      : persistedSlots;
+    const positionIndex = new Map(positionSlots.map((slot, index) => [slot, index + 1]));
 
     for (const rec of list) {
       const tr = document.createElement("tr");
@@ -651,7 +750,7 @@
 
       const tdHandle = document.createElement("td");
       tdHandle.className = "drag-handle";
-      tdHandle.textContent = "⋮⋮";
+      tdHandle.innerHTML = '<span class="drag-grip">⋮⋮</span><span class="order-position">#' + positionIndex.get(rec.slot) + '</span>';
       tr.appendChild(tdHandle);
 
       const tdCheck = document.createElement("td");
@@ -673,12 +772,14 @@
       const noInput = document.createElement("input");
       noInput.type = "number";
       noInput.className = "num-input";
-      noInput.value = rec.channelNo;
+      noInput.value = pendingNumbers.has(rec.slot) ? pendingNumbers.get(rec.slot) : rec.channelNo;
       noInput.min = 0; noInput.max = 65535;
-      noInput.disabled = rec.deleted;
+      noInput.disabled = rec.deleted || Boolean(draftOrder);
       noInput.addEventListener("change", () => {
-        rec.channelNo = Math.max(0, Math.min(65535, parseInt(noInput.value || "0", 10)));
-        noInput.value = rec.channelNo;
+        const nextNumber = Math.max(0, Math.min(65535, parseInt(noInput.value || "0", 10)));
+        if (nextNumber === rec.channelNo) pendingNumbers.delete(rec.slot);
+        else pendingNumbers.set(rec.slot, nextNumber);
+        render();
       });
       tdNo.appendChild(noInput);
       tr.appendChild(tdNo);
@@ -712,6 +813,7 @@
       frag.appendChild(tr);
     }
     tbody.appendChild(frag);
+    updateDraftOrderBar();
     updateStats();
     attachDragHandlers();
   }
@@ -774,6 +876,7 @@
   }
 
   function reorderBySlots(fromSlot, toSlot) {
+    if (pendingNumbers.size > 0) { toast(t("resolveManualFirst")); return; }
     // Always reorder against the full active channel list (not the current
     // filtered/search view) so a drag never leaves channels outside the
     // current filter with stale numbers while the visible ones get
@@ -784,10 +887,8 @@
     if (fromIdx === -1 || toIdx === -1) return;
     const [moved] = list.splice(fromIdx, 1);
     list.splice(toIdx, 0, moved);
-    const start = parseInt($("renumberStart").value || "1", 10);
-    list.forEach((r, i) => { r.channelNo = start + i; });
-    sortKey = "channelNo"; sortDir = 1;
-    toast(t("renumberedFrom", { n: list.length, start }), "ok");
+    draftOrder = list.map(r => r.slot);
+    toast(t("orderAppliedSuffix", { count: list.length }), "ok");
     render();
   }
 
@@ -817,6 +918,8 @@
     selected = new Set();
     lastClickedSlot = null;
     pickOrder = [];
+    draftOrder = null;
+    pendingNumbers.clear();
     $("fileInput").value = "";
     $("app").classList.remove("visible");
     $("dropzone").style.display = "";
@@ -885,6 +988,7 @@
 
   document.querySelectorAll("thead th[data-sort]").forEach(th => {
     th.addEventListener("click", () => {
+      if (draftOrder) { toast(t("finishDraftFirst")); return; }
       const key = th.dataset.sort;
       if (sortKey === key) sortDir *= -1; else { sortKey = key; sortDir = 1; }
       render();
@@ -941,40 +1045,46 @@
 
   $("deleteBtn").addEventListener("click", () => {
     if (selected.size === 0) { toast(t("selectToDeleteFirst")); return; }
+    if (pendingNumbers.size > 0) { toast(t("resolveManualFirst")); return; }
     if (!confirm(t("confirmDeleteSelected", { n: selected.size }))) return;
     for (const slot of selected) {
       const r = records.find(x => x.slot === slot);
       if (r) r.deleted = true;
     }
     selected.clear();
-    render();
+    activateMembershipOrderPreview();
   });
   $("undeleteBtn").addEventListener("click", () => {
     if (selected.size === 0) { toast(t("selectToRestoreFirst")); return; }
+    if (pendingNumbers.size > 0) { toast(t("resolveManualFirst")); return; }
     for (const slot of selected) {
       const r = records.find(x => x.slot === slot);
       if (r) r.deleted = false;
     }
-    render();
+    activateMembershipOrderPreview();
   });
 
-  $("renumberBtn").addEventListener("click", () => {
-    const start = parseInt($("renumberStart").value || "1", 10);
-    const list = visibleList();
-    list.forEach((r, i) => { r.channelNo = start + i; });
-    toast(t("renumberedFrom", { n: list.length, start }), "ok");
-    render();
-  });
-
-  // ---------- sort modes: reorder a group to the front/back of the full active list, renumber sequentially ----------
+  // ---------- channel-order preview ----------
   function allActive() {
-    return records.filter(r => r.used && !r.deleted).sort((a, b) => a.channelNo - b.channelNo);
+    const active = records.filter(r => r.used && !r.deleted);
+    if (!draftOrder) return active.sort((a, b) => a.channelNo - b.channelNo);
+    const orderIndex = new Map(draftOrder.map((slot, index) => [slot, index]));
+    return active.sort((a, b) => {
+      const ai = orderIndex.has(a.slot) ? orderIndex.get(a.slot) : Number.MAX_SAFE_INTEGER;
+      const bi = orderIndex.has(b.slot) ? orderIndex.get(b.slot) : Number.MAX_SAFE_INTEGER;
+      return (ai - bi) || (a.channelNo - b.channelNo);
+    });
+  }
+  function activateMembershipOrderPreview() {
+    draftOrder = allActive().map(r => r.slot);
+    render();
   }
   function applyOrder(newOrder, label) {
-    const start = parseInt($("renumberStart").value || "1", 10);
-    newOrder.forEach((r, i) => { r.channelNo = start + i; });
-    toast(label + t("orderAppliedSuffix", { count: newOrder.length, start }), "ok");
+    if (pendingNumbers.size > 0) { toast(t("resolveManualFirst")); return false; }
+    draftOrder = newOrder.map(r => r.slot);
+    toast(label + t("orderAppliedSuffix", { count: newOrder.length }), "ok");
     render();
+    return true;
   }
   function moveGroupToStart(predicate, label) {
     const list = allActive();
@@ -1016,15 +1126,54 @@
     moveGroupToEnd(r => r.encrypted, t("encToBottom"));
   });
 
+  $("applyDraftOrderBtn").addEventListener("click", () => {
+    if (draftOrder) {
+      const start = parseInt($("renumberStart").value || "1", 10);
+      const list = allActive();
+      list.forEach((r, i) => { r.channelNo = start + i; });
+      draftOrder = null;
+      sortKey = "channelNo";
+      sortDir = 1;
+      toast(t("draftOrderApplied", { count: list.length, start }), "ok");
+    } else if (pendingNumbers.size > 0) {
+      const count = pendingNumbers.size;
+      for (const [slot, channelNo] of pendingNumbers) {
+        const record = records.find(r => r.slot === slot);
+        if (record && !record.deleted) record.channelNo = channelNo;
+      }
+      pendingNumbers.clear();
+      sortKey = "channelNo";
+      sortDir = 1;
+      toast(t("manualNumbersApplied", { count }), "ok");
+    } else {
+      return;
+    }
+    render();
+  });
+
+  $("cancelDraftOrderBtn").addEventListener("click", () => {
+    if (draftOrder) {
+      draftOrder = null;
+      toast(t("draftOrderCancelled"), "ok");
+    } else if (pendingNumbers.size > 0) {
+      pendingNumbers.clear();
+      toast(t("manualNumbersCancelled"), "ok");
+    } else {
+      return;
+    }
+    render();
+  });
+
   // ---------- bulk delete presets ----------
   function deleteWhere(predicate, label) {
+    if (pendingNumbers.size > 0) { toast(t("resolveManualFirst")); return; }
     const list = allActive().filter(predicate);
     if (list.length === 0) { toast(t("noMatchingGroup")); return; }
     if (!confirm(t("confirmDeleteGroup", { label, count: list.length }))) return;
     list.forEach(r => { r.deleted = true; });
     selected.clear();
     toast(t("deletedGroupToast", { count: list.length, label }), "ok");
-    render();
+    activateMembershipOrderPreview();
   }
   $("deleteEncBtn").addEventListener("click", () => deleteWhere(r => r.encrypted, t("labelAllEncrypted")));
   $("deleteFreeBtn").addEventListener("click", () => deleteWhere(r => !r.encrypted, t("labelAllFree")));
@@ -1033,6 +1182,10 @@
   $("deleteSdBtn").addEventListener("click", () => deleteWhere(r => serviceLabel(r.serviceType) === "sd", t("labelAllSd")));
   $("deleteHdBtn").addEventListener("click", () => deleteWhere(r => serviceLabel(r.serviceType) === "hd", t("labelAllHd")));
   $("deleteEmptyBtn").addEventListener("click", () => deleteWhere(r => r.name.trim() === "", t("labelEmptyNamed")));
+  $("deleteDuplicateBtn").addEventListener("click", () => {
+    const duplicateSlots = new Set(findDuplicateChannels().map(r => r.slot));
+    deleteWhere(r => duplicateSlots.has(r.slot), t("labelDuplicateNamed"));
+  });
 
   // ---------- "search & build order" picker modal ----------
   let pickOrder = []; // array of slots, in the order the user clicked them
@@ -1148,20 +1301,22 @@
   $("pickerSearch").addEventListener("input", pickerRenderResults);
   $("pickerClearBtn").addEventListener("click", () => { pickOrder = []; pickerRenderChosen(); pickerRenderResults(); });
   $("pickerSaveBtn").addEventListener("click", () => {
+    if (pendingNumbers.size > 0) { toast(t("resolveManualFirst")); return; }
     if (pickOrder.length === 0) { toast(t("addAtLeastOne")); return; }
     const start = parseInt($("pickerStart").value || "1", 10);
     const list = allActive();
     const picked = pickOrder.map(slot => list.find(r => r.slot === slot)).filter(Boolean);
     const rest = list.filter(r => !pickOrder.includes(r.slot));
     const newOrder = [...picked, ...rest];
-    newOrder.forEach((r, i) => { r.channelNo = start + i; });
     $("renumberStart").value = start;
+    draftOrder = newOrder.map(r => r.slot);
     toast(t("pickedAppliedToast", { n: picked.length }), "ok");
     closePicker();
     render();
   });
 
   $("saveBtn").addEventListener("click", async () => {
+    if (draftOrder || pendingNumbers.size > 0) { toast(t("applyDraftBeforeSave")); return; }
     try {
       $("status").textContent = t("saving");
       const newSateData = recordsToBuffer(records);

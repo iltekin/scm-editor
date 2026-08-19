@@ -32,11 +32,10 @@
       openPickerBtn: "🎯 Aratarak Sıra Oluştur",
       deleteBtn: "🗑 Seçilenleri Sil",
       undeleteBtn: "↺ Seçilenleri Geri Al",
-      sortMenuBtn: "🔀 Sıralama Modları ▾",
-      menuRenumberTitle: "Yeniden numarala",
+      sortMenuBtn: "🔀 Kanal Sırası ▾",
+      sortMenuHelp: "Bu seçenekler yalnızca yeni sırayı önizler; kanal numaraları sen uygulayana kadar değişmez.",
       startNoLabel: "Başlangıç No:",
-      renumberBtn: "🔢 Görünen sıraya göre numarala",
-      menuSortGroupTitle: "Gruba göre sırala",
+      menuSortGroupTitle: "Sıra oluştur (önizleme)",
       sortNameBtn: "🔤 İsme göre sırala (A-Z)",
       selFirstBtn: "⬆ Seçilenleri başa al",
       selLastBtn: "⬇ Seçilenleri sona al",
@@ -55,6 +54,7 @@
       deleteFreeBtn: "Tüm şifresiz kanalları sil",
       menuDeleteOtherTitle: "Diğer",
       deleteEmptyBtn: "Boş isimli kanalları sil",
+      deleteDuplicateBtn: "Mükerrer kanalları sil (HD'yi koru)",
       hintHtml: '💡 İpucu: Bir satıra tıklayıp seç, sonra <kbd>Shift</kbd> tuşunu basılı tutarak başka bir satıra tıkla — aradaki tüm kanallar tek seferde seçilir.',
       statTotalLabel: "Toplam kayıt:",
       statUsedLabel: "Kullanılan:",
@@ -64,6 +64,7 @@
       statShownLabel: "Gösterilen:",
       statSelectedLabel: "Seçili:",
       thNo: "No ▾",
+      thOrder: "Sıra",
       thName: "Kanal Adı",
       thType: "Tür",
       thEnc: "Şifreli",
@@ -90,19 +91,32 @@
       exampleNotFound: "Örnek dosya bulunamadı (HTTP {status})",
       exampleLoadFailed: "Örnek dosya yüklenemedi: {msg}",
       noChannelsInView: "Görünen listede kanal yok.",
+      draftOrderTitle: "Yeni kanal sırası önizleniyor",
+      draftOrderCount: "{count} kanal — mevcut numaralar henüz değişmedi.",
+      manualNumberTitle: "Manuel kanal numarası değişikliği bekliyor",
+      manualNumberCount: "{count} numara değişikliği — uygulayana kadar satırlar yerinde kalır.",
+      applyOrderChangesBtn: "Uygula",
+      cancelDraftOrderBtn: "Vazgeç",
+      draftOrderApplied: "Yeni sıra {start}'den başlayarak {count} kanalın numaralarına uygulandı.",
+      draftOrderCancelled: "Taslak kanal sırası iptal edildi.",
+      manualNumbersApplied: "{count} manuel kanal numarası değişikliği uygulandı.",
+      manualNumbersCancelled: "Manuel kanal numarası değişiklikleri iptal edildi.",
+      resolveManualFirst: "Yeni bir sıra oluşturmadan önce manuel numara değişikliklerini uygula veya iptal et.",
+      finishDraftFirst: "Tabloyu farklı sıralamak için önce taslak sırayı uygula veya iptal et.",
+      applyDraftBeforeSave: "Kaydetmeden önce bekleyen sıra veya numara değişikliklerini uygula ya da iptal et.",
       firstNSelected: "İlk {n} kanal seçildi.",
       confirmDeleteSelected: "{n} kanal silinsin mi? (Kaydetmeden önce geri alabilirsin)",
       selectToDeleteFirst: "Önce silinecek kanalları seç.",
       selectToRestoreFirst: "Önce geri alınacak kanalları seç.",
       renumberedFrom: "{n} kanal {start}'den başlayarak yeniden numaralandı.",
-      sortedByName: "İsme göre sıralandı",
-      selectedToTop: "Seçilenler başa alındı",
-      selectedToBottom: "Seçilenler sona alındı",
-      radiosToTop: "Radyolar başa alındı",
-      radiosToBottom: "Radyolar sona alındı",
-      encToTop: "Şifreliler başa alındı",
-      encToBottom: "Şifreliler sona alındı",
-      orderAppliedSuffix: " ({count} kanal, {start}'den başlayarak numaralandı).",
+      sortedByName: "İsme göre sıra önizlemesi hazır",
+      selectedToTop: "Seçilenlerin başta olduğu sıra önizleniyor",
+      selectedToBottom: "Seçilenlerin sonda olduğu sıra önizleniyor",
+      radiosToTop: "Radyoların başta olduğu sıra önizleniyor",
+      radiosToBottom: "Radyoların sonda olduğu sıra önizleniyor",
+      encToTop: "Şifrelilerin başta olduğu sıra önizleniyor",
+      encToBottom: "Şifrelilerin sonda olduğu sıra önizleniyor",
+      orderAppliedSuffix: " ({count} kanal; numaralar henüz değişmedi).",
       noMatchingGroup: "Bu gruba uyan kanal yok.",
       selectChannelFirst: "Önce kanal seç.",
       labelAllEncrypted: "Tüm şifreli kanallar",
@@ -112,6 +126,7 @@
       labelAllSd: "Tüm SD kanallar",
       labelAllHd: "Tüm HD kanallar",
       labelEmptyNamed: "Boş isimli kanallar",
+      labelDuplicateNamed: "Mükerrer kanallar (HD tercih edilir)",
       confirmDeleteGroup: "{label}: {count} kanal silinsin mi? (Kaydetmeden önce geri alabilirsin)",
       deletedGroupToast: "{count} kanal silindi ({label}).",
       pickerStartHint: "Aramaya başla — sonuçlar burada listelenecek.",
@@ -162,11 +177,10 @@
       openPickerBtn: "🎯 Build Order by Searching",
       deleteBtn: "🗑 Delete Selected",
       undeleteBtn: "↺ Restore Selected",
-      sortMenuBtn: "🔀 Sort Modes ▾",
-      menuRenumberTitle: "Renumber",
+      sortMenuBtn: "🔀 Channel Order ▾",
+      sortMenuHelp: "These actions only preview a new order; channel numbers stay unchanged until you apply it.",
       startNoLabel: "Start No.:",
-      renumberBtn: "🔢 Renumber by current view order",
-      menuSortGroupTitle: "Sort by group",
+      menuSortGroupTitle: "Build order (preview)",
       sortNameBtn: "🔤 Sort by name (A-Z)",
       selFirstBtn: "⬆ Move selected to top",
       selLastBtn: "⬇ Move selected to bottom",
@@ -185,6 +199,7 @@
       deleteFreeBtn: "Delete all free-to-air channels",
       menuDeleteOtherTitle: "Other",
       deleteEmptyBtn: "Delete channels with empty names",
+      deleteDuplicateBtn: "Delete duplicate channels (keep HD)",
       hintHtml: '💡 Tip: Click a row to select it, then hold <kbd>Shift</kbd> and click another row — every channel in between gets selected at once.',
       statTotalLabel: "Total records:",
       statUsedLabel: "Used:",
@@ -194,6 +209,7 @@
       statShownLabel: "Shown:",
       statSelectedLabel: "Selected:",
       thNo: "No ▾",
+      thOrder: "Order",
       thName: "Channel Name",
       thType: "Type",
       thEnc: "Encrypted",
@@ -220,19 +236,32 @@
       exampleNotFound: "Example file not found (HTTP {status})",
       exampleLoadFailed: "Failed to load example file: {msg}",
       noChannelsInView: "No channels in the current view.",
+      draftOrderTitle: "Previewing a new channel order",
+      draftOrderCount: "{count} channels — current numbers have not changed yet.",
+      manualNumberTitle: "Manual channel-number changes are pending",
+      manualNumberCount: "{count} number changes — rows stay in place until you apply them.",
+      applyOrderChangesBtn: "Apply",
+      cancelDraftOrderBtn: "Cancel",
+      draftOrderApplied: "The new order was applied to {count} channel numbers starting from {start}.",
+      draftOrderCancelled: "The draft channel order was cancelled.",
+      manualNumbersApplied: "{count} manual channel-number changes were applied.",
+      manualNumbersCancelled: "Manual channel-number changes were cancelled.",
+      resolveManualFirst: "Apply or cancel manual number changes before building a new order.",
+      finishDraftFirst: "Apply or cancel the draft order before sorting the table another way.",
+      applyDraftBeforeSave: "Apply or cancel pending order or number changes before saving.",
       firstNSelected: "First {n} channels selected.",
       confirmDeleteSelected: "Delete {n} channels? (You can restore them before saving)",
       selectToDeleteFirst: "Select channels to delete first.",
       selectToRestoreFirst: "Select channels to restore first.",
       renumberedFrom: "{n} channels renumbered starting from {start}.",
-      sortedByName: "Sorted by name",
-      selectedToTop: "Selected moved to top",
-      selectedToBottom: "Selected moved to bottom",
-      radiosToTop: "Radios moved to top",
-      radiosToBottom: "Radios moved to bottom",
-      encToTop: "Encrypted moved to top",
-      encToBottom: "Encrypted moved to bottom",
-      orderAppliedSuffix: " ({count} channels, numbered starting from {start}).",
+      sortedByName: "Name-order preview is ready",
+      selectedToTop: "Previewing selected channels at the top",
+      selectedToBottom: "Previewing selected channels at the bottom",
+      radiosToTop: "Previewing radio channels at the top",
+      radiosToBottom: "Previewing radio channels at the bottom",
+      encToTop: "Previewing encrypted channels at the top",
+      encToBottom: "Previewing encrypted channels at the bottom",
+      orderAppliedSuffix: " ({count} channels; numbers are unchanged for now).",
       noMatchingGroup: "No channels match this group.",
       selectChannelFirst: "Select a channel first.",
       labelAllEncrypted: "All encrypted channels",
@@ -242,6 +271,7 @@
       labelAllSd: "All SD channels",
       labelAllHd: "All HD channels",
       labelEmptyNamed: "Channels with empty names",
+      labelDuplicateNamed: "Duplicate channels (HD preferred)",
       confirmDeleteGroup: "{label}: delete {count} channels? (You can restore them before saving)",
       deletedGroupToast: "{count} channels deleted ({label}).",
       pickerStartHint: "Start typing — results will appear here.",
@@ -506,6 +536,8 @@
   let lastClickedIndex = -1;
   let pickerChosenList = [];
   let dragIds = [];
+  let draftOrder = null; // channel ids in preview order; channelNo stays unchanged until applied
+  let pendingNumbers = new Map(); // channel id -> staged channelNo
 
   // DOM Elements
   const dropzone = document.getElementById("dropzone");
@@ -532,8 +564,13 @@
 
   const sortMenuBtn = document.getElementById("sortMenuBtn");
   const sortMenuPanel = document.getElementById("sortMenuPanel");
-  const renumberBtn = document.getElementById("renumberBtn");
   const renumberStartInput = document.getElementById("renumberStart");
+  const orderDraftBar = document.getElementById("orderDraftBar");
+  const orderChangeTitle = document.getElementById("orderChangeTitle");
+  const draftStartControls = document.getElementById("draftStartControls");
+  const draftOrderCount = document.getElementById("draftOrderCount");
+  const applyDraftOrderBtn = document.getElementById("applyDraftOrderBtn");
+  const cancelDraftOrderBtn = document.getElementById("cancelDraftOrderBtn");
   const sortNameBtn = document.getElementById("sortNameBtn");
   const selFirstBtn = document.getElementById("selFirstBtn");
   const selLastBtn = document.getElementById("selLastBtn");
@@ -551,6 +588,7 @@
   const deleteEncBtn = document.getElementById("deleteEncBtn");
   const deleteFreeBtn = document.getElementById("deleteFreeBtn");
   const deleteEmptyBtn = document.getElementById("deleteEmptyBtn");
+  const deleteDuplicateBtn = document.getElementById("deleteDuplicateBtn");
 
   const openPickerBtn = document.getElementById("openPickerBtn");
   const pickerOverlay = document.getElementById("pickerOverlay");
@@ -572,6 +610,52 @@
     statusEl.textContent = msg;
     statusEl.classList.remove("hidden");
     statusEl.style.color = isError ? "var(--danger)" : "var(--muted)";
+  }
+
+  function updateDraftOrderBar() {
+    for (const id of pendingNumbers.keys()) {
+      const channel = allChannels.find(ch => ch.id === id);
+      if (!channel || channel.deleted) pendingNumbers.delete(id);
+    }
+    if (!draftOrder && pendingNumbers.size === 0) {
+      orderDraftBar.classList.add("hidden");
+      return;
+    }
+    orderDraftBar.classList.remove("hidden");
+    const isDraft = Boolean(draftOrder);
+    orderChangeTitle.textContent = t(isDraft ? "draftOrderTitle" : "manualNumberTitle");
+    draftStartControls.classList.toggle("hidden", !isDraft);
+    const count = isDraft ? allChannels.filter(ch => !ch.deleted).length : pendingNumbers.size;
+    draftOrderCount.textContent = t(isDraft ? "draftOrderCount" : "manualNumberCount", { count });
+  }
+
+  function normalizedChannelName(name) {
+    return String(name || "")
+      .normalize("NFKC")
+      .trim()
+      .replace(/\s+/g, " ")
+      .toLocaleLowerCase("tr-TR");
+  }
+
+  function findDuplicateChannels() {
+    const groups = new Map();
+    for (const channel of allChannels.filter(ch => !ch.deleted)) {
+      const key = normalizedChannelName(channel.name);
+      if (!key) continue;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(channel);
+    }
+
+    const duplicates = [];
+    for (const group of groups.values()) {
+      if (group.length < 2) continue;
+      const ordered = group.slice().sort((a, b) => (a.channelNo - b.channelNo) || (a.index - b.index));
+      const hd = ordered.filter(ch => getChannelType(ch.serviceType) === "hd");
+      const sd = ordered.filter(ch => getChannelType(ch.serviceType) === "sd");
+      const keep = (hd.length ? hd : sd.length ? sd : ordered)[0];
+      duplicates.push(...ordered.filter(ch => ch !== keep));
+    }
+    return duplicates;
   }
 
   // ---------- Initialize SQLite Engine ----------
@@ -645,6 +729,8 @@
           index: idx
         };
       });
+      draftOrder = null;
+      pendingNumbers.clear();
 
       loadedFileName = fileName;
       dropzone.style.display = "none";
@@ -690,15 +776,24 @@
       return true;
     });
 
-    list.sort((a, b) => {
-      let va = a[sortState.col];
-      let vb = b[sortState.col];
-      if (typeof va === "string") {
-        const cmp = va.localeCompare(vb, lang);
-        return sortState.asc ? cmp : -cmp;
-      }
-      return sortState.asc ? va - vb : vb - va;
-    });
+    if (draftOrder) {
+      const orderIndex = new Map(draftOrder.map((id, index) => [id, index]));
+      list.sort((a, b) => {
+        const ai = orderIndex.has(a.id) ? orderIndex.get(a.id) : Number.MAX_SAFE_INTEGER;
+        const bi = orderIndex.has(b.id) ? orderIndex.get(b.id) : Number.MAX_SAFE_INTEGER;
+        return (ai - bi) || (a.channelNo - b.channelNo);
+      });
+    } else {
+      list.sort((a, b) => {
+        let va = a[sortState.col];
+        let vb = b[sortState.col];
+        if (typeof va === "string") {
+          const cmp = va.localeCompare(vb, lang);
+          return sortState.asc ? cmp : -cmp;
+        }
+        return sortState.asc ? va - vb : vb - va;
+      });
+    }
 
     return list;
   }
@@ -707,6 +802,14 @@
   function render() {
     const visible = getFilteredChannels();
     tbody.innerHTML = "";
+    const persistedIds = allChannels
+      .slice()
+      .sort((a, b) => (a.channelNo - b.channelNo) || (a.index - b.index))
+      .map(ch => ch.id);
+    const positionIds = draftOrder
+      ? [...draftOrder, ...persistedIds.filter(id => !draftOrder.includes(id))]
+      : persistedIds;
+    const positionIndex = new Map(positionIds.map((id, index) => [id, index + 1]));
 
     const activeCount = allChannels.filter(c => !c.deleted).length;
     const encCount = allChannels.filter(c => !c.deleted && c.encrypted).length;
@@ -746,10 +849,13 @@
         ? `<span class="badge enc">${t("badgeEncrypted")}</span>`
         : `<span class="badge free">${t("badgeFree")}</span>`;
 
+      const numberDisabled = draftOrder || ch.deleted ? "disabled" : "";
+      const displayedNumber = pendingNumbers.has(ch.id) ? pendingNumbers.get(ch.id) : ch.channelNo;
+
       tr.innerHTML = `
-        <td class="drag-handle" title="Sürükle bırak">⋮⋮</td>
+        <td class="drag-handle" title="Sürükle bırak"><span class="drag-grip">⋮⋮</span><span class="order-position">#${positionIndex.get(ch.id)}</span></td>
         <td onclick="event.stopPropagation()"><input type="checkbox" class="row-check" ${isSelected ? "checked" : ""}></td>
-        <td><input type="number" class="num-input" value="${ch.channelNo}" min="0" max="65535" onclick="event.stopPropagation()"></td>
+        <td><input type="number" class="num-input" value="${displayedNumber}" min="0" max="65535" ${numberDisabled} onclick="event.stopPropagation()"></td>
         <td><input type="text" class="name-input" value="${escapeHtml(ch.name)}" onclick="event.stopPropagation()"></td>
         <td>${badgeHtml}</td>
         <td>${encBadgeHtml}</td>
@@ -771,8 +877,10 @@
       // Number Change
       const numInp = tr.querySelector(".num-input");
       numInp.addEventListener("change", (e) => {
-        const val = parseInt(e.target.value, 10);
-        if (!isNaN(val)) ch.channelNo = val;
+        const val = Math.max(0, Math.min(65535, parseInt(e.target.value || "0", 10)));
+        if (val === ch.channelNo) pendingNumbers.delete(ch.id);
+        else pendingNumbers.set(ch.id, val);
+        render();
       });
 
       // Name Change
@@ -820,6 +928,7 @@
 
       tbody.appendChild(tr);
     });
+    updateDraftOrderBar();
   }
 
   function handleRowClick(visibleList, clickedIdx, isShift) {
@@ -842,7 +951,7 @@
   }
 
   function moveChannelBefore(sourceId, targetId) {
-    const list = allChannels.filter(c => !c.deleted);
+    const list = activeChannelsInOrder();
     const srcIdx = list.findIndex(c => c.id === sourceId);
     const tgtIdx = list.findIndex(c => c.id === targetId);
     if (srcIdx === -1 || tgtIdx === -1 || srcIdx === tgtIdx) return;
@@ -851,22 +960,11 @@
     const adjustedTgt = srcIdx < tgtIdx ? tgtIdx - 1 : tgtIdx;
     list.splice(adjustedTgt, 0, item);
 
-    const activeIds = new Set(list.map(c => c.id));
-    const deletedChannels = allChannels.filter(c => !activeIds.has(c.id));
-    allChannels = [...list, ...deletedChannels];
-
-    const start = parseInt(renumberStartInput.value, 10) || 1;
-    list.forEach((ch, idx) => {
-      ch.channelNo = start + idx;
-    });
-
-    sortState.col = "channelNo";
-    sortState.asc = true;
-    render();
+    previewChannelOrder(list);
   }
 
   function moveGroupBefore(sourceIds, targetId) {
-    const list = allChannels.filter(c => !c.deleted);
+    const list = activeChannelsInOrder();
     const idSet = new Set(sourceIds.map(String));
     if (idSet.size === 0) return;
     if (list.findIndex(c => c.id === targetId) === -1) return;
@@ -879,18 +977,7 @@
     if (insertPos === -1) rest.push(...group);
     else rest.splice(insertPos, 0, ...group);
 
-    const activeIds = new Set(rest.map(c => c.id));
-    const deletedChannels = allChannels.filter(c => !activeIds.has(c.id));
-    allChannels = [...rest, ...deletedChannels];
-
-    const start = parseInt(renumberStartInput.value, 10) || 1;
-    rest.forEach((ch, idx) => {
-      ch.channelNo = start + idx;
-    });
-
-    sortState.col = "channelNo";
-    sortState.asc = true;
-    render();
+    previewChannelOrder(rest);
   }
 
   function escapeHtml(str) {
@@ -965,6 +1052,8 @@
         fileInput.value = "";
         allChannels = [];
         selectedSet.clear();
+        draftOrder = null;
+        pendingNumbers.clear();
       }
     });
 
@@ -997,6 +1086,10 @@
     // Header Sort
     document.querySelectorAll("thead th[data-sort]").forEach(th => {
       th.addEventListener("click", () => {
+        if (draftOrder) {
+          setStatus(t("finishDraftFirst"), true);
+          return;
+        }
         const col = th.dataset.sort;
         if (sortState.col === col) {
           sortState.asc = !sortState.asc;
@@ -1031,12 +1124,16 @@
         setStatus(t("selectToDeleteFirst"), true);
         return;
       }
+      if (pendingNumbers.size > 0) {
+        setStatus(t("resolveManualFirst"), true);
+        return;
+      }
       if (confirm(t("confirmDeleteSelected", { n: selectedSet.size }))) {
         allChannels.forEach(c => {
           if (selectedSet.has(c.id)) c.deleted = true;
         });
         selectedSet.clear();
-        render();
+        activateMembershipOrderPreview();
       }
     });
 
@@ -1045,10 +1142,14 @@
         setStatus(t("selectToRestoreFirst"), true);
         return;
       }
+      if (pendingNumbers.size > 0) {
+        setStatus(t("resolveManualFirst"), true);
+        return;
+      }
       allChannels.forEach(c => {
         if (selectedSet.has(c.id)) c.deleted = false;
       });
-      render();
+      activateMembershipOrderPreview();
     });
 
     // Dropdown Panels
@@ -1056,57 +1157,51 @@
     setupDropdownMenu(deleteMenuBtn, deleteMenuPanel);
 
     // Sort Actions
-    renumberBtn.addEventListener("click", () => {
-      const start = parseInt(renumberStartInput.value, 10) || 1;
-      const visible = getFilteredChannels();
-      visible.forEach((ch, idx) => { ch.channelNo = start + idx; });
-      sortMenuPanel.classList.remove("open");
-      render();
-      setStatus(t("renumberedFrom", { n: visible.length, start }));
-    });
-
     sortNameBtn.addEventListener("click", () => {
-      allChannels.sort((a, b) => a.name.localeCompare(b.name, lang));
+      const ordered = activeChannelsInOrder().sort((a, b) => a.name.localeCompare(b.name, lang));
+      const changed = previewChannelOrder(ordered);
       sortMenuPanel.classList.remove("open");
-      render();
-      setStatus(t("sortedByName"));
+      if (changed) setStatus(t("sortedByName"));
     });
 
     selFirstBtn.addEventListener("click", () => {
-      moveGroupToTop(c => selectedSet.has(c.id));
+      const changed = moveGroupToTop(c => selectedSet.has(c.id));
       sortMenuPanel.classList.remove("open");
-      setStatus(t("selectedToTop"));
+      if (changed) setStatus(t("selectedToTop"));
     });
 
     selLastBtn.addEventListener("click", () => {
-      moveGroupToBottom(c => selectedSet.has(c.id));
+      const changed = moveGroupToBottom(c => selectedSet.has(c.id));
       sortMenuPanel.classList.remove("open");
-      setStatus(t("selectedToBottom"));
+      if (changed) setStatus(t("selectedToBottom"));
     });
 
     radioFirstBtn.addEventListener("click", () => {
-      moveGroupToTop(c => getChannelType(c.serviceType) === "radio");
+      const changed = moveGroupToTop(c => getChannelType(c.serviceType) === "radio");
       sortMenuPanel.classList.remove("open");
-      setStatus(t("radiosToTop"));
+      if (changed) setStatus(t("radiosToTop"));
     });
 
     radioLastBtn.addEventListener("click", () => {
-      moveGroupToBottom(c => getChannelType(c.serviceType) === "radio");
+      const changed = moveGroupToBottom(c => getChannelType(c.serviceType) === "radio");
       sortMenuPanel.classList.remove("open");
-      setStatus(t("radiosToBottom"));
+      if (changed) setStatus(t("radiosToBottom"));
     });
 
     encFirstBtn.addEventListener("click", () => {
-      moveGroupToTop(c => c.encrypted);
+      const changed = moveGroupToTop(c => c.encrypted);
       sortMenuPanel.classList.remove("open");
-      setStatus(t("encToTop"));
+      if (changed) setStatus(t("encToTop"));
     });
 
     encLastBtn.addEventListener("click", () => {
-      moveGroupToBottom(c => c.encrypted);
+      const changed = moveGroupToBottom(c => c.encrypted);
       sortMenuPanel.classList.remove("open");
-      setStatus(t("encToBottom"));
+      if (changed) setStatus(t("encToBottom"));
     });
+
+    applyDraftOrderBtn.addEventListener("click", applyDraftOrder);
+    cancelDraftOrderBtn.addEventListener("click", cancelDraftOrder);
 
     // Bulk Delete Actions
     deleteSdBtn.addEventListener("click", () => bulkDeleteByFilter(c => getChannelType(c.serviceType) === "sd", t("labelAllSd")));
@@ -1116,6 +1211,10 @@
     deleteEncBtn.addEventListener("click", () => bulkDeleteByFilter(c => c.encrypted, t("labelAllEncrypted")));
     deleteFreeBtn.addEventListener("click", () => bulkDeleteByFilter(c => !c.encrypted, t("labelAllFree")));
     deleteEmptyBtn.addEventListener("click", () => bulkDeleteByFilter(c => !c.name.trim(), t("labelEmptyNamed")));
+    deleteDuplicateBtn.addEventListener("click", () => {
+      const duplicateIds = new Set(findDuplicateChannels().map(c => c.id));
+      bulkDeleteByFilter(c => duplicateIds.has(c.id), t("labelDuplicateNamed"));
+    });
 
     // Save Button
     saveBtn.addEventListener("click", saveAndDownloadZip);
@@ -1144,30 +1243,99 @@
     });
   }
 
-  function moveGroupToTop(predicate) {
-    const group = allChannels.filter(predicate);
-    const rest = allChannels.filter(c => !predicate(c));
-    allChannels = [...group, ...rest];
-    renumberChannelsInPlace();
+  function activeChannelsInOrder() {
+    const active = allChannels.filter(c => !c.deleted).slice();
+    if (!draftOrder) {
+      return active.sort((a, b) => (a.channelNo - b.channelNo) || (a.index - b.index));
+    }
+    const orderIndex = new Map(draftOrder.map((id, index) => [id, index]));
+    return active.sort((a, b) => {
+      const ai = orderIndex.has(a.id) ? orderIndex.get(a.id) : Number.MAX_SAFE_INTEGER;
+      const bi = orderIndex.has(b.id) ? orderIndex.get(b.id) : Number.MAX_SAFE_INTEGER;
+      return (ai - bi) || (a.channelNo - b.channelNo) || (a.index - b.index);
+    });
+  }
+
+  function activateMembershipOrderPreview() {
+    draftOrder = activeChannelsInOrder().map(ch => ch.id);
     render();
+  }
+
+  function previewChannelOrder(ordered) {
+    if (pendingNumbers.size > 0) {
+      setStatus(t("resolveManualFirst"), true);
+      return false;
+    }
+    draftOrder = ordered.map(ch => ch.id);
+    render();
+    return true;
+  }
+
+  function applyDraftOrder() {
+    if (draftOrder) {
+      const start = parseInt(renumberStartInput.value, 10) || 1;
+      const ordered = activeChannelsInOrder();
+      ordered.forEach((ch, idx) => { ch.channelNo = start + idx; });
+      const orderedIds = new Set(ordered.map(ch => ch.id));
+      const inactive = allChannels.filter(ch => !orderedIds.has(ch.id));
+      allChannels = [...ordered, ...inactive];
+      draftOrder = null;
+      sortState = { col: "channelNo", asc: true };
+      render();
+      setStatus(t("draftOrderApplied", { count: ordered.length, start }));
+    } else if (pendingNumbers.size > 0) {
+      const count = pendingNumbers.size;
+      for (const [id, channelNo] of pendingNumbers) {
+        const channel = allChannels.find(ch => ch.id === id);
+        if (channel && !channel.deleted) channel.channelNo = channelNo;
+      }
+      pendingNumbers.clear();
+      sortState = { col: "channelNo", asc: true };
+      render();
+      setStatus(t("manualNumbersApplied", { count }));
+    }
+  }
+
+  function cancelDraftOrder() {
+    if (draftOrder) {
+      draftOrder = null;
+      render();
+      setStatus(t("draftOrderCancelled"));
+    } else if (pendingNumbers.size > 0) {
+      pendingNumbers.clear();
+      render();
+      setStatus(t("manualNumbersCancelled"));
+    }
+  }
+
+  function moveGroupToTop(predicate) {
+    const active = activeChannelsInOrder();
+    const group = active.filter(predicate);
+    if (group.length === 0) {
+      setStatus(t("noMatchingGroup"), true);
+      return false;
+    }
+    const rest = active.filter(c => !predicate(c));
+    return previewChannelOrder([...group, ...rest]);
   }
 
   function moveGroupToBottom(predicate) {
-    const group = allChannels.filter(predicate);
-    const rest = allChannels.filter(c => !predicate(c));
-    allChannels = [...rest, ...group];
-    renumberChannelsInPlace();
-    render();
-  }
-
-  function renumberChannelsInPlace() {
-    allChannels.forEach((ch, idx) => {
-      ch.channelNo = idx + 1;
-    });
+    const active = activeChannelsInOrder();
+    const group = active.filter(predicate);
+    if (group.length === 0) {
+      setStatus(t("noMatchingGroup"), true);
+      return false;
+    }
+    const rest = active.filter(c => !predicate(c));
+    return previewChannelOrder([...rest, ...group]);
   }
 
   function bulkDeleteByFilter(predicate, label) {
     deleteMenuPanel.classList.remove("open");
+    if (pendingNumbers.size > 0) {
+      setStatus(t("resolveManualFirst"), true);
+      return;
+    }
     const targets = allChannels.filter(c => !c.deleted && predicate(c));
     if (targets.length === 0) {
       setStatus(t("noMatchingGroup"), true);
@@ -1175,7 +1343,7 @@
     }
     if (confirm(t("confirmDeleteGroup", { label, count: targets.length }))) {
       targets.forEach(c => { c.deleted = true; });
-      render();
+      activateMembershipOrderPreview();
       setStatus(t("deletedGroupToast", { count: targets.length, label }));
     }
   }
@@ -1332,18 +1500,22 @@
 
     const start = parseInt(pickerStart.value, 10) || 1;
     const chosenIds = new Set(pickerChosenList.map(c => c.id));
-    const rest = allChannels.filter(c => !chosenIds.has(c.id));
+    const rest = activeChannelsInOrder().filter(c => !chosenIds.has(c.id));
 
-    allChannels = [...pickerChosenList, ...rest];
-    allChannels.forEach((c, i) => { c.channelNo = start + i; });
+    const ordered = [...pickerChosenList, ...rest];
+    renumberStartInput.value = start;
+    if (!previewChannelOrder(ordered)) return;
 
     closePickerModal();
-    render();
     setStatus(t("pickedAppliedToast", { n: pickerChosenList.length }));
   }
 
   // ---------- Save & Download ZIP ----------
   async function saveAndDownloadZip() {
+    if (draftOrder || pendingNumbers.size > 0) {
+      setStatus(t("applyDraftBeforeSave"), true);
+      return;
+    }
     try {
       setStatus(t("saving"));
 

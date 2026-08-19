@@ -13,12 +13,17 @@ Samsung TV'nin uydu aramasıyla oluşturduğu `channel_list_....scm` dosyasını
 - Kanalları **yeniden adlandırabilir**,
 - Kanal **numaralarını (sırasını)** değiştirebilir,
 - Kanalları **toplu silebilir** (tek tek, tür bazlı: SD/HD/Radyo, şifre durumuna göre: şifreli/şifresiz, ya da boş isimli kayıtları),
+- Toplu silme menüsünden aynı isimli **mükerrer kanalları temizleyebilir**; HD kayıt varsa onu, yoksa SD kaydı koruyabilir,
 - **Aratarak sıra oluşturabilir**: arama kutusuna yazıp tıkladığın kanalları istediğin sırayla listenin başına taşıyabilir,
 - Radyoları/şifreli kanalları/seçili kanalları listenin **başına veya sonuna** taşıyabilir,
 
 ve sonunda değişiklikleri yeni bir `.scm` dosyası olarak indirip TV'ye geri yükleyebilirsin.
 
 Arayüz **Türkçe ve İngilizce** olarak kullanılabilir (sağ üstteki dil düğmesiyle anında değişir); varsayılan dil Türkçe'dir.
+
+Tablo başlıklarına tıklamak yalnızca ekrandaki görünümü sıralar. **Kanal Sırası** menüsündeki işlemler yeni sırayı önce numaraları değiştirmeden önizletir; kullanıcı sonucu kontrol ettikten sonra **Uygula** ile bu sırayı kaydedilecek kanal numaralarına aktarır veya **Vazgeç** ile iptal eder.
+
+Tablonun solundaki **Sıra** sütunu sürükleme tutamacını ve kalıcı `#sıra` göstergesini birlikte gösterir. `No` alanında yapılan manuel değişiklikler de önce bekletilir; satır yerinde kalır ve değişiklik ancak **Uygula** düğmesiyle kesinleşir.
 
 ## Nasıl çalışır?
 
@@ -72,12 +77,17 @@ Opens the `channel_list_....scm` file created by your Samsung TV's satellite sca
 - **Rename** channels,
 - Change channel **numbers (order)**,
 - **Bulk-delete** channels (one by one, by type: SD/HD/Radio, by encryption status: encrypted/free-to-air, or empty-named records),
+- Clean up same-name **duplicate channels** from the bulk-delete menu, preferring an HD entry and otherwise keeping an SD entry,
 - **Build a custom order by searching**: type in the search box, click the channels you want, and move them to the top of the list in exactly that order,
 - Move radios/encrypted channels/selected channels to the **top or bottom** of the list,
 
 and finally download the changes as a new `.scm` file and load it back onto your TV.
 
 The interface is available in **Turkish and English** (switch instantly with the language button in the top right); the default language is Turkish.
+
+Clicking a table header only sorts the on-screen view. Actions in the **Channel Order** menu first preview a new order without changing channel numbers; after reviewing it, the user can choose **Apply** to persist the order or **Cancel** to discard it.
+
+The **Order** column keeps both the drag handle and a persistent `#position` indicator visible. Manual edits in the `No` field are staged as well; the row stays in place until the user chooses **Apply**.
 
 ## How it works
 

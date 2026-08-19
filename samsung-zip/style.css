@@ -115,8 +115,16 @@
   .menu-panel .btn { width: 100%; justify-content: flex-start; }
   .menu-panel .menu-sep { height: 1px; background: var(--border); margin: 6px 0; }
   .menu-panel .menu-title { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; padding: 2px 4px 4px; }
+  .menu-panel .menu-note { color: var(--muted); font-size: 11px; line-height: 1.4; padding: 2px 4px 8px; }
   .menu-panel .menu-row { display: flex; gap: 6px; align-items: center; padding: 2px 4px 6px; }
   .menu-panel .menu-row input[type=number] { width: 70px; }
+
+  .order-draft-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; padding: 10px 12px; border: 1px solid var(--accent); border-radius: 10px; background: var(--panel2); }
+  .order-draft-info { display: flex; flex-direction: column; gap: 2px; }
+  .order-draft-info span { color: var(--muted); font-size: 11px; }
+  .order-draft-actions { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  .order-draft-actions label { color: var(--muted); font-size: 12px; display: flex; align-items: center; gap: 6px; }
+  .order-draft-actions input[type=number] { width: 70px; }
 
   .hint { color: var(--muted); font-size: 11.5px; margin-bottom: 10px; }
   .hint kbd { background: var(--panel2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; font-size: 11px; }
@@ -158,7 +166,9 @@
   tbody tr.dragging { opacity: 0.3; }
   tbody tr.drop-target { border-top: 2px solid var(--accent); }
 
-  .drag-handle { cursor: grab; color: var(--muted); width: 18px; text-align: center; }
+  .drag-handle { cursor: grab; color: var(--muted); width: 72px; white-space: nowrap; text-align: left; }
+  .drag-handle .drag-grip { display: inline-block; width: 18px; text-align: center; }
+  .drag-handle .order-position { color: var(--accent); font-weight: 700; font-size: 11px; margin-left: 4px; }
   .num-input {
     width: 60px;
     background: var(--panel2);

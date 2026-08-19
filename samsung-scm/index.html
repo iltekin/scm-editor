@@ -67,16 +67,10 @@
 
       <div class="sep"></div>
       <div class="menu">
-        <button class="btn menu-trigger" id="sortMenuBtn" data-i18n="sortMenuBtn">🔀 Sıralama Modları ▾</button>
+        <button class="btn menu-trigger" id="sortMenuBtn" data-i18n="sortMenuBtn">🔀 Kanal Sırası ▾</button>
         <div class="menu-panel" id="sortMenuPanel">
-          <div class="menu-title" data-i18n="menuRenumberTitle">Yeniden numarala</div>
-          <div class="menu-row">
-            <span data-i18n="startNoLabel">Başlangıç No:</span>
-            <input type="number" id="renumberStart" value="1" min="0" max="65535">
-          </div>
-          <button class="btn" id="renumberBtn" data-i18n="renumberBtn">🔢 Görünen sıraya göre numarala</button>
-          <div class="menu-sep"></div>
-          <div class="menu-title" data-i18n="menuSortGroupTitle">Gruba göre sırala</div>
+          <div class="menu-note" data-i18n="sortMenuHelp">Bu seçenekler yalnızca yeni sırayı önizler; kanal numaraları sen uygulayana kadar değişmez.</div>
+          <div class="menu-title" data-i18n="menuSortGroupTitle">Sıra oluştur (önizleme)</div>
           <button class="btn" id="sortNameBtn" data-i18n="sortNameBtn">🔤 İsme göre sırala (A-Z)</button>
           <button class="btn" id="selFirstBtn" data-i18n="selFirstBtn">⬆ Seçilenleri başa al</button>
           <button class="btn" id="selLastBtn" data-i18n="selLastBtn">⬇ Seçilenleri sona al</button>
@@ -103,7 +97,22 @@
           <div class="menu-sep"></div>
           <div class="menu-title" data-i18n="menuDeleteOtherTitle">Diğer</div>
           <button class="btn danger" id="deleteEmptyBtn" data-i18n="deleteEmptyBtn">Boş isimli kanalları sil</button>
+          <button class="btn danger" id="deleteDuplicateBtn" data-i18n="deleteDuplicateBtn">Mükerrer kanalları sil (HD'yi koru)</button>
         </div>
+      </div>
+    </div>
+
+    <div class="order-draft-bar hidden" id="orderDraftBar">
+      <div class="order-draft-info">
+        <strong id="orderChangeTitle">Yeni kanal sırası önizleniyor</strong>
+        <span id="draftOrderCount"></span>
+      </div>
+      <div class="order-draft-actions">
+        <label id="draftStartControls"><span data-i18n="startNoLabel">Başlangıç No:</span>
+          <input type="number" id="renumberStart" value="1" min="0" max="65535">
+        </label>
+        <button class="btn" id="cancelDraftOrderBtn" data-i18n="cancelDraftOrderBtn">Vazgeç</button>
+        <button class="btn primary" id="applyDraftOrderBtn" data-i18n="applyOrderChangesBtn">Uygula</button>
       </div>
     </div>
 
@@ -126,7 +135,7 @@
       <table>
         <thead>
           <tr>
-            <th style="width:18px"></th>
+            <th style="width:72px" data-i18n="thOrder">Sıra</th>
             <th style="width:26px"><input type="checkbox" id="headerCheck"></th>
             <th data-sort="channelNo" style="width:70px" data-i18n="thNo">No ▾</th>
             <th data-sort="name" data-i18n="thName">Kanal Adı</th>
