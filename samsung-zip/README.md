@@ -9,10 +9,15 @@ Yeni Samsung televizyonların oluşturduğu `.zip` dosyası içindeki SQLite ver
 - Kanalları **yeniden adlandırabilir**,
 - Kanal **numaralarını (sırasını)** değiştirebilir,
 - Kanalları **toplu silebilir** (tek tek, tür bazlı: SD/HD/Radyo, şifre durumuna göre: şifreli/şifresiz, ya da boş isimli kayıtları),
+- Toplu silme menüsünden aynı isimli **mükerrer kanalları temizleyebilir**; HD kayıt varsa onu, yoksa SD kaydı korur (aynı kalitede en düşük kanal numarası tutulur),
 - **Aratarak sıra oluşturabilir**: arama kutusuna yazıp tıkladığın kanalları istediğin sırayla listenin başına taşıyabilir,
 - Radyoları/şifreli kanalları/seçili kanalları listenin **başına veya sonuna** taşıyabilir,
 
 ve güncellenmiş veritabanını tekrar `.zip` dosyası olarak indirip TV'ye geri yükleyebilirsin.
+
+Tablo başlıkları yalnızca ekrandaki görünümü sıralar. **Kanal Sırası** menüsündeki işlemler yeni sırayı önce kanal numaralarını değiştirmeden önizletir; kullanıcı daha sonra **Uygula** ile sırayı kaydedilecek numaralara aktarabilir veya **Vazgeç** ile iptal edebilir.
+
+Tablonun solundaki **Sıra** sütununda sürükleme tutamacı ve `#sıra` göstergesi her zaman görünür. `No` alanındaki manuel değişiklikler satırı hemen taşımadan bekletilir ve **Uygula** düğmesiyle kesinleştirilir.
 
 ## Nasıl çalışır?
 
@@ -39,8 +44,13 @@ A browser-based tool for editing `Channel_list_....zip` satellite/cable channel 
 - **Rename** channels
 - Change channel **numbers/order**
 - **Bulk-delete** channels by type (SD/HD/Radio), encryption status, or empty names
+- Clean up **duplicate channel names** from the bulk-delete menu, preferring HD over SD and then the lowest channel number
 - **Build custom order by searching** via interactive modal
 - Move radios, encrypted channels, or selection to top/bottom
 - Re-pack updated SQLite database into valid ZIP format for TV upload
 - Multi-language support (TR/EN)
 - 100% offline, zero server dependency
+
+Table headers only sort the on-screen view. Actions in the **Channel Order** menu first preview a new order without changing channel numbers; the user can then choose **Apply** to persist it or **Cancel** to discard it.
+
+The **Order** column always shows both the drag handle and a `#position` indicator. Manual edits in the `No` field are staged without moving the row and are committed with **Apply**.
